@@ -143,7 +143,7 @@ async function searchPokemon(){
 				pokeName.innerHTML = "MissingNo.";
 				pokeImg.src = "";
 				pokeImg.style.display = "none"
-				pokeInfo.innerHTML = "Error. Pokemon Not found. (Have you misspelled something?) Please input a new name!"
+				pokeInfo.innerHTML = "Error. Pokémon Not found. (Have you misspelled something?) Please input a new name!"
 				pokeTypeA.innerHTML = "???";
 				pokeTypeB.innerHTML = "?";
 				pokeIDNum.innerHTML = "#000";
@@ -156,6 +156,9 @@ async function searchPokemon(){
 				pokeGen.innerHTML = "?????";
 				pokeEvoStage.innerHTML = "????";
 				pokeEvoLineType.innerHTML = "????";
+				
+				linkBulba.innerHTML = "";
+				linkSmog.innerHTML = "";
 				
 				//changeColorOfBackground("#29adff");
 				changeColorOfBackground("default");
