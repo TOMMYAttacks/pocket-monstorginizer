@@ -15,6 +15,7 @@
 
 // Fetch data from the PokeAPI.
 import { fetchPokemonData, fetchDefaultFormData } from "./api.js";
+import { specialPokeName } from "./utils.js";
 
 // Updates the page with fetched data, displays the image, and changes the background color based on the Pokémon's color.
 import {
@@ -48,7 +49,7 @@ const pokeSearch = document.getElementById("PokeSearch");
  */
 async function handleSearch() {
   // Get the Pokémon name, convert it to lowercase.
-  let target = pokeSearch.value.toLowerCase();
+  let target = specialPokeName(pokeSearch.value.toLowerCase());
 
   // Fetch the data.
   let pokemonSpecies = await fetchPokemonData(target);

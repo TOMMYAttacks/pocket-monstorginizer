@@ -59,31 +59,9 @@ export function capitalize(string) {
  * @return string   the hyphenated Pokémon name.
  */
 export function specialPokeName(target) {
-  // List of Pokémon that have hyphens in their names.
-  const hyphenExceptions = [
-    "ho-oh",
-    "porygon-z",
-    "jangmo-o",
-    "hakamo-o",
-    "kommo-o",
-    "ting-lu",
-    "chien-pao",
-    "wo-chien",
-    "chi-yu",
-  ];
+  // Replace all hyphens with spaces
+  let updatedName = target.split("-").join(" ");
 
-  // Check if the name includes a hyphen.
-  if (target.includes("-")) {
-    // If the name isn't in the list, replace the hyphen with a space.
-    if (!hyphenExceptions.includes(target)) {
-      let spaceIndex = target.indexOf("-");
-      // Capitalize both sides of the name split by the hyphen.
-      target =
-        capitalize(target.substring(0, spaceIndex)) +
-        " " +
-        capitalize(target.substring(spaceIndex + 1));
-    }
-  }
-  // Capitalize the first letter of the name then return.
-  return capitalize(target);
+  // Return name
+  return updatedName.toLowerCase();
 }
