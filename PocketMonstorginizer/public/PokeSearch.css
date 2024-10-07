@@ -1,12 +1,8 @@
-@charset "UTF-8";
-
 body {
-	background-color: #aae1e1;
+  background-color: #aae1e1;
 }
 
-
-
-.Main{
-	width: 450px;
-	margin: 0 auto;
+.Main {
+  width: 450px;
+  margin: 0 auto;
 }

@@ -1,60 +1,78 @@
+<!--
+
+Search Page Layout
+
+This file outlines the basic structure of the search page. The page dynamically updates with details fetched from 
+the Pokémon API when users to search a name.
+
+Components:
+
+- Page title
+- Main container for Pokémon info
+- Search input and button
+- Sections for Pokémon attributes
+- External links to Bulbapedia and Smogon
+- JavaScript file for search functionality
+
+-->
+
 <!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title>PokeSearch</title>
-	<link rel="stylesheet" href="PokeSearch.css">
-</head>
-<body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PokeSearch</title>
+    <link rel="stylesheet" href="PokeSearch.css" />
+  </head>
+  <body>
+    <div class="Main">
+      <h1 id="PokeName">Pokémon Searcher</h1>
+      <img
+        id="PokeImg"
+        alt="Pokemon Image"
+        src=""
+        style="display: none; width: 130px; height: 130px"
+      />
+      <p id="PokeInfo">
+        A tool for searching Pokémon! Type in a name of a Pokémon species, and
+        you will see all sorts of info on it!
+      </p>
+      <p><code id="TypeA">TypeA</code><code id="TypeB">/TypeB</code></p>
+      <p>
+        <code id="Grouping">Grouping</code>
+      </p>
+      <p>
+        <code id="IDNum">#0000</code> |
+        <code id="PokeGen">Generation</code>
+      </p>
+      <p>
+        | <code id="PokeEvoStage">Evo Stage</code> |
+        <code id="PokeEvoLineType">Evo Line Type</code> |
+        <code id="PokeEvoDoesBranch">Evo Branch?</code> |
+      </p>
+      <p>
+        | <code id="PokeColor">Color</code> |
+        <code id="PokeShape">Shape</code> |
+      </p>
+      <p>
+        | <code id="PokeEggGroup1">Egg Group</code
+        ><code id="PokeEggGroup2">/Groups</code> |
+        <code id="PokeGenderRate">GenderRate</code> |
+      </p>
+      <p>
+        <input type="text" id="PokeSearch" placeholder="Enter Pokémon name" />
+        <button id="enter" style="width: 103px; height: 26px">Search</button>
+      </p>
+      <p>
+        Bulbapedia:
+        <a id="BulbaLink" href=""></a>
+      </p>
+      <p>
+        Smogon Page:
+        <a id="SmogLink" href=""></a>
+      </p>
+    </div>
 
-	<div class="Main">
-	
-		<h1 id="PokeName"> Pokémon Searcher</h1>
-		
-		<img id="PokeImg" alt="Pokemon Image" src="" style="display: none; width: 130px; height: 130px">
-		
-		<p id="PokeInfo">A tool for searching Pokémon! Type in a name of a Pokémon species , and you will see all sorts of info on it!</p>
-		
-		<p>
-			<code id="TypeA">TypeA</code><code id="TypeB">/TypeB</code> 
-		</p>
-		<p>
-			<code id="Grouping">Grouping</code>
-		</p>
-		
-		<p>
-			<code id="IDNum">#0000</code> | 
-			<code id="PokeGen">Generation</code>
-		</p>
-
-		<p>
-			| <code id="PokeEvoStage">Evo Stage</code> | 
-			<code id="PokeEvoLineType">Evo Line Type</code> |
-			<code id="PokeEvoDoesBranch">Evo Branch?</code> |
-		</p>
-		
-		<p>
-			| </code><code id="PokeColor">Color</code> | 
-			<code id="PokeShape">Shape</code> |
-		</p>
-		<p>
-			| <code id="PokeEggGroup1">Egg</code><code id="PokeEggGroup2">Groups</code>  |
-			<code id="PokeGenderRate">GenderRate</code> | 
-		<p>
-			<input type="text" id = "PokeSearch" placeholder="Enter Pokemon name">
-			<button id="enter" style="width: 103px; height: 26px"> Search</button>
-		</p>
-		
-		<p>Bulbapedia: 
-			<a id="BulbaLink" href = ""></a></p>
-		<p>Smogon Page:
-			<a id="SmogLink" href = ""></a></p>
-	
-	
-	
-	
-	
-	</div>
-	<script type="text/javascript" src="PokeSearch.js"></script>
-</body>
+    <script type="module" src="index.js"></script>
+  </body>
 </html>
