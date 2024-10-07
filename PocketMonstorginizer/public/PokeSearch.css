@@ -4,5 +4,15 @@ body {
 
 .Main {
   width: 450px;
-  margin: 0 auto;
+  margin: 50px auto;
+  text-align: center;
+}
+
+input[type="text"] {
+  padding: 5px;
+  margin-right: 10px;
+}
+
+button {
+  padding: 5px;
 }

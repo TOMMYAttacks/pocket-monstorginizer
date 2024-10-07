@@ -50,7 +50,7 @@ export function updatePokeInfo(pokemonSpecies) {
  */
 export function showPokeImage(imageUrl) {
   // Get the image element.
-  let pokeImg = document.getElementById("PokeImg");
+  let pokeImg = document.getElementById("pokeImg");
 
   // Set the image element's source to the image URL.
   pokeImg.src = imageUrl;
