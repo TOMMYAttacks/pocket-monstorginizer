@@ -1,5 +1,15 @@
 # Gitignore for eclipse projects
 
+# Ignore macOS system files
+.DS_Store
+
+# Ignore all hidden files
+.*
+
+# Don't ignore .gitignore or .env files
+!.gitignore
+!.env
+
 .metadata
 bin/
 tmp/
