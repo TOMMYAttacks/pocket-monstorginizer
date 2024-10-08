@@ -53,7 +53,7 @@ export function capitalize(string) {
 }
 
 /**
- * Ensure proper capitalization and handle special cases for hyphens, e.g. (ho-oh).
+ * Ensure proper text case and handle special cases for hyphens, e.g. (ho-oh).
  *
  * @param  target   the name of the Pokémon.
  * @return string   the hyphenated Pokémon name.
