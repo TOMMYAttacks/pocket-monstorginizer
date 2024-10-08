@@ -122,7 +122,7 @@ function updateExternalLinks(pokemonName) {
   document.getElementById("BulbaLink").innerHTML = bulbapediaURL;
 
   // Create the Smogon URL
-  const smogonURL = `https://www.smogon.com/dex/ss/pokemon/${pokemonName.toLowerCase()}/`;
+  const smogonURL = `https://www.smogon.com/dex/sv/pokemon/${pokemonName.toLowerCase()}/`;
 
   // Find the Smogon link element and set its href to the Smogon URL.
   document.getElementById("SmogLink").href = smogonURL;
