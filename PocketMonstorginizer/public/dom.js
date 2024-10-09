@@ -7,8 +7,9 @@
  * Functions:
  * 1. updatePokeInfo(pokemonSpecies) - Updates the page with the Pokémon's name, description, ID, and generation.
  * 2. showPokeImage(imageUrl) - Renders the Pokémon's image on the page.
- * 3. findPokeGrouping(pokemonSpecies) - Determines if the Pokémon is a "Baby" or "Regular" category.
- * 4. changeColorOfBackground(color) - Changes the page's background color to match the Pokémon's color.
+ * 3. findPokeGrouping(pokemonSpecies) - Displays whatever grouping the Pokémon falls in
+ * 4  addSlashIfNeeded(string) - Adds a slash to the PokeGroup string in cases that a Pokemon falls into more than one group.
+ * 5. changeColorOfBackground(color) - Changes the page's background color to match the Pokémon's color.
  */
 
 // Helper function to Capitalize the first letter of a string to uppercase.
@@ -17,8 +18,13 @@ import { capitalize, normalizePokeName } from "./utils.js";
 import { fetchDefaultFormData } from "./api.js";
 
 import {getPokeColor, getPokeEggGroup1, getPokeEggGroup2, getPokeGenderRate,
-		getPokeGeneration, getPokeShape, getPokeTypeA, getPokeTypeB
+		getPokeGeneration, getPokeShape, getPokeTypeA, getPokeTypeB,
+		getIsBranching, getPokeEvoLineType, getPokeEvoStage
 		} from "./getInfo.js";
+		
+import {isBaby, isEeveelution, isElectricRodent,
+		isFossil, isLegend, isMythic,
+		isParadox, isPseudoLegend, isStarter, isUltraBeast } from "./group.js";
 
 /**
  * Updates the Pokémon information on the webpage.
@@ -38,7 +44,7 @@ export async function updatePokeInfo(pokemonSpecies) {
 
   // Show the Pokémon's grouping.
   document.getElementById("Grouping").innerHTML =
-    findPokeGrouping(pokemonSpecies);
+    await findPokeGrouping(pokemonSpecies)// + " Pokémon";
 
   // Display the Pokémon's ID number, formatted to 3 digits.
   document.getElementById("IDNum").innerHTML =
@@ -62,14 +68,26 @@ export async function updatePokeInfo(pokemonSpecies) {
   // Display Pokémon's shape
   document.getElementById("PokeShape").innerHTML = capitalize(getPokeShape(pokemonSpecies));
   
+  
   //Display Pokémon's gender rate
   document.getElementById("PokeGenderRate").innerHTML = getPokeGenderRate(pokemonSpecies);
+  
   
   //Display Pokémon's First Egg Group
   document.getElementById("PokeEggGroup1").innerHTML = capitalize(getPokeEggGroup1(pokemonSpecies));
   
   //Display Pokémon's Second Egg Group
   document.getElementById("PokeEggGroup2").innerHTML = getPokeEggGroup2(pokemonSpecies) != "" ? "/" + capitalize(getPokeEggGroup2(pokemonSpecies)) : "";
+  
+  
+  //Display if the Pokémon's evolution line is branching or linear
+  document.getElementById("PokeEvoDoesBranch").innerHTML = await getIsBranching(pokemonSpecies);
+  
+  //Display Pokémon Stage of Evolution
+  document.getElementById("PokeEvoStage").innerHTML = await getPokeEvoStage(pokemonSpecies);
+  
+  //Display Pokémon's type of Evolution Line
+  document.getElementById("PokeEvoLineType").innerHTML = await getPokeEvoLineType(pokemonSpecies);
   
   
   }
@@ -94,14 +112,32 @@ export function showPokeImage(imageUrl) {
 }
 
 /**
- * Determines the category or grouping the Pokémon belongs to.
- *
- * @param  pokemonSpecies   the data of the Pokémon's 'category.
- * @return string           returns the category name.
+ * Returns a string representing the group/groups that the Pokémon belongs to
+ * 
+ * @param  pokemonSpecies	Given Pokémon Species
+ * @return string			Group/Groups Pokémon Belongs to
  */
-function findPokeGrouping(pokemonSpecies) {
-  // Check if the Pokémon is categorized as a baby, and return the category.
-  return pokemonSpecies.is_baby ? "Baby Pokémon" : "Regular Pokémon";
+export async function findPokeGrouping(pokemonSpecies){
+	let grouping = "";
+	if (await isStarter(pokemonSpecies)){grouping = addSlashIfNeeded(grouping) + "First Partner"};
+	if (await isLegend(pokemonSpecies)){grouping = addSlashIfNeeded(grouping) + "Legendary"};
+	if (await isMythic(pokemonSpecies)){grouping = addSlashIfNeeded(grouping) + "Mythical"};
+	if (await isUltraBeast(pokemonSpecies)){grouping = addSlashIfNeeded(grouping) + "Ultra Beast"}
+	if (await isParadox(pokemonSpecies)){grouping = addSlashIfNeeded(grouping) + "Paradox"}
+	if (await isFossil(pokemonSpecies)){grouping = addSlashIfNeeded(grouping) + "Fossil"};
+	if (await isBaby(pokemonSpecies)){grouping = addSlashIfNeeded(grouping) + "Baby"};
+	if (await isPseudoLegend(pokemonSpecies)){grouping = addSlashIfNeeded(grouping) + "Pseudo-Legendary"}
+	if (await isEeveelution(pokemonSpecies)){grouping = addSlashIfNeeded(grouping) + "Eeveelution"};
+	if (await isElectricRodent(pokemonSpecies)){grouping = addSlashIfNeeded(grouping) + "Electric Rodent"};
+	if (grouping == ""){grouping += "Regular"};
+
+	return grouping;
+	
+}
+
+/**Adds a slash to the PokeGroup string in cases that a Pokemon falls into more than one group. */
+function addSlashIfNeeded(string){
+	return string == "" ? string : string + "/";
 }
 
 /**

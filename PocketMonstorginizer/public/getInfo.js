@@ -15,8 +15,11 @@
  * 8. getPokeShape(pokemonSpecies) - Gets the shape of the Pokémon
  * 9. getPokeGeneration(pokemonSpecies) - Gets the generation that the Pokémon was introduced in
  * 10. formatPokeGeneration(genName) - Returns the given generation name formated to a more standard style. (e.g., generation-vi -> Generation VI) Used with getPokeGeneration
- * 
- * 
+ * 11. getPokeEvoStage(pokemonSpecies) - Gets what stage of evolution this Pokemon is in.
+ * 12. getIsBranching(pokemonSpecies) - Gets if this Pokémon is part of a branching evolution line or a linear evolution line. 
+ * 13. getPokeEvoLineType(pokemonSpecies) - Gets what sort of evolution line this Pokemon's belongs to in terms of how many times it can evolve
+ * 14. getPokeEvoChain(pokemonSpecies) - Gets the Pokemon's evolution chain as an object to be used by other functions.
+ * 15. getPokeEvoChainMembers(pokemonSpecies) - Gets the Pokemon's evolution chain as an object to be used by other functions
  */
 
 import { capitalize } from "./utils.js";
@@ -149,6 +152,159 @@ export function getPokeGeneration(pokemonSpecies){
 function formatPokeGeneration(genName){
 	let spaceIndex = genName.indexOf("-");
 	return capitalize(genName.substring(0,spaceIndex)) + " " + genName.substring(spaceIndex + 1).toUpperCase();
+}
+
+/**Gets what stage of evolution the Pokemon is in.
+ *
+ * @param  pokemonSpecies	Given Pokémon Species
+ * @return string			The Pokémon's current stage of evolution. 
+ * 
+ * @description	 			This function uses termanalogy from the Pokémon Tradeing Card Game;  
+ *							Basic: The Pokémon hasn't evolved.
+ * 							Stage 1: The Pokémon evolved once.
+ * 							Stage 2: The Pokémon evolved twice.
+ * @example  Pichu -> Basic, Pikachu -> stage 1, Raichu -> stage 2
+ *
+*/
+export async function getPokeEvoStage(pokemonSpecies){
+	//let evoChain = await getPokeEvoChain(pokemonSpecies);
+	let evoChainMembers = getPokeEvoChainMembers(pokemonSpecies)
+	
+	let basicMember = (await evoChainMembers).basic
+	let stage1Members = (await evoChainMembers).stage1
+	let stage2Members = (await evoChainMembers).stage2
+	
+	//console.log("Basic: " + basicMember)
+	//console.log("Stage 1: " + stage1Members)
+	//console.log("Stage 2: " + stage2Members)
+	
+	if(basicMember.includes(pokemonSpecies.name)){
+		return "Basic"
+	}
+	else if (stage1Members.includes(pokemonSpecies.name)){
+		return "Stage 1"
+	}
+	else if(stage2Members.includes(pokemonSpecies.name)){
+		return "Stage 2"
+	}
+	else{
+		return "Unknown Stage"
+	}
+
+}
+
+
+/**Gets if this Pokémon is part of a branching evolution line or a linear evolution line. 
+ *
+ * @param  pokemonSpecies	Given Pokémon Species
+ * @return string			Message stateing if its a branching evolution line or a linear evolution line. 
+ * 
+ * @description			Branching Evolution Line - the line contains a species that can evolve into two or more different other pokemon species. (e.g Eevee, Oddish, Slowpoke)
+ * 						Linear Evolution Line - each Pokémon in the species can only evolve into at most one other Pokémon. (e.g. Mankey, Psyduck, Vulpix)
+ *						Note: Pokemon who don't evolve at all are considered to be in a linear evolution line. (e.g. Miltank, Mewtwo, Aerodactyl)
+ * 
+*/
+export async function getIsBranching(pokemonSpecies){
+	
+	let evoChainMembers = getPokeEvoChainMembers(pokemonSpecies)
+
+	//let basicMember = (await evoChainMembers).basic
+	let stage1Members = (await evoChainMembers).stage1
+	let stage2Members = (await evoChainMembers).stage2
+	
+	if(stage1Members.length > 1 || stage2Members.length > 1){
+		return "Branching Evolution Line"
+	}
+	else{
+		return "Linear Evolution Line"
+	}
+	
+}
+
+/**Gets what sort of evolution line this Pokemon's belongs to in terms of how many times it can evolve
+ *
+ * @param  pokemonSpecies	Given Pokémon Species
+ * @return string			What sort of evolution line the Pokémon belongs to.
+ * 	
+ * @description				No Evolution - The Pokémon's line can not evolve. (e.g. Miltank, Mewtwo, Aerodactyl)
+ * 							Two-Stage Evolution - The Pokémon may evolve once in its line. (e.g. Meowth, Steelix, Flareon)
+ * 							Theee-Stage Evolution - The Pokémon may evolve twice in its line. (e.g. Charmander, Clefairy, Bellossom)
+*/
+export async function getPokeEvoLineType(pokemonSpecies){
+	let evoChain = await getPokeEvoChain(pokemonSpecies)
+	let evoType = ""
+	//console.log(pokemonSpecies.name + "'s Evo Chain");
+	//console.log(evoChain);
+	//console.log(evoChain.chain);
+	//console.log(evoChain.chain.evolves_to);
+	
+	if (evoChain.chain.evolves_to.length == 0){
+		evoType = "No Evolution";
+	}
+	else{
+		if(evoChain.chain.evolves_to[0].evolves_to.length == 0){
+			evoType = "Two-Stage Evolution";
+		}
+		else{
+			evoType = "Three-Stage Evoluiton";
+		}
+	}
+	//console.log(evoType);
+	return evoType;
+	
+}
+
+/**Gets the Pokemon's evolution chain as an object to be used by other functions
+ * 
+ * @param pokemonSpecies	Given Pokémon Species
+ * @return url string		The PokeAPI url to the given Pokémon Species's evolution chain
+ */
+async function getPokeEvoChain(pokemonSpecies){
+	try{
+		let res = await fetch(pokemonSpecies.evolution_chain.url);
+		let pokeEvoChain = await res.json();
+		
+		//console.log(pokeEvoChain);
+		return pokeEvoChain;
+	}
+	catch{
+		console.log("Opps! No chain!");
+		
+	}
+		
+}
+
+/**Returns each member of the pokemon evolution chain, seperated by stage of evolution.
+ * To be used by other functions.
+ * 
+ * @param pokemonSpecies	Given Pokémon Species
+ * @return Object			The members of the Pokémon's evolution chain, seperated by evolution stage
+ * 
+ * @description Note: When calling you'll have to await for the values:  (await pokeEvoChainMembers).stage1 -> stage1)
+ */
+async function getPokeEvoChainMembers(pokemonSpecies){
+	let evoChain = await getPokeEvoChain(pokemonSpecies);
+
+	//Get a list of the names of every pokemon in each evo line
+	let basicEvoLineMembers = [evoChain.chain.species.name]
+	let stage1EvoLineMembers = [];
+	let stage2EvoLineMembers = [];
+	evoChain.chain.evolves_to.forEach(stage1Pokemon =>{
+		stage1EvoLineMembers.push(stage1Pokemon.species.name);
+		
+		stage1Pokemon.evolves_to.forEach(stage2Pokemon =>{
+			stage2EvoLineMembers.push(stage2Pokemon.species.name);
+		})
+	})
+
+	let pokeEvoChainMembers = {
+		basic : basicEvoLineMembers,
+		stage1 : stage1EvoLineMembers,
+		stage2 : stage2EvoLineMembers
+	}
+	
+	return pokeEvoChainMembers;
+	
 }
 
 
