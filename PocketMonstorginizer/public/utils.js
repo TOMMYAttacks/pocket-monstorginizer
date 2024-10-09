@@ -7,6 +7,8 @@
  * 1. validatePokeName(target) - Sanitizes text and replacing spaces with hyphens.
  * 2. capitalize(string) - Capitalizes the first letter of a string.
  * 3. specialPokeName(target) - Handles special cases like hyphenated names to ensure proper formatting.
+ * 4. normalizePokeName(target) - Takes the Pokémon's name from the PokeAPI and returns the Pokemon's name as how it's written normally.
+ * 5. correctPokeName(target) - Corrects spelling of the Pokémon name in cases when it would need special characters added.
  */
 
 /**
@@ -64,4 +66,75 @@ export function specialPokeName(target) {
 
   // Return name
   return updatedName.toLowerCase();
+}
+
+/**
+ * 
+ * Takes the Pokémon's name from the PokeAPI and returns the Pokemon's name as how it's written normally.
+ * This includes captalizeing all sections of the name, as well as adding any non letter/number characters.
+ * (e.g., pikachu -> Pikachu, great-tusk -> Great Tusk, ho-oh -> Ho-Oh)
+ * 
+ * @param target	the name of the Pokémon in the API
+ * @return string	the normalized Pokémon name
+ */
+
+export function normalizePokeName(target){
+	//These Pokémon already have hyphens in their names
+	const hyphenExceptions = [ "ho-oh", "porygon-z", "jangmo-o", "hakamo-o", "kommo-o", "ting-lu", "chien-pao", "wo-chien", "chi-yu"];
+	if(target.includes("-")){
+		//Remove the hypthens (if they wern't already there) and replace them with spaces.
+		if(!hyphenExceptions.includes(target)){//If the target isn't one of the exceptions
+			let spaceIndex = target.indexOf("-");
+			target = capitalize(target.substring(0,spaceIndex)) + " " + capitalize(target.substring(spaceIndex + 1));
+		}
+		else{
+			//In all cases other then the kommo-o line, both sides will need to be captalized
+			if(target != "jangmo-o" && target != "hakamo-o" && target != "kommo-o"){
+				let spaceIndex = target.indexOf("-");
+				target = capitalize(target.substring(0,spaceIndex)) + "-" + capitalize(target.substring(spaceIndex + 1));
+			}
+		}
+	}
+	target = capitalize(target);
+	target = correctPokeName(target);
+
+	return target;
+}
+
+/**
+ * Corrects spelling of the Pokémon name in cases when it would need special characters added.
+ * To be used within normalizePokeName
+ * 
+ * @param target	the current spelling of the Pokémon
+ * @return string	the corrected Pokémon name
+ */
+function correctPokeName(target){
+	const namesWithoutPeriod = ["Mime Jr", "Mr Mime", "Mr Rime"]
+	const namesWithPeriod = ["Mime Jr.", "Mr. Mime", "Mr. Rime"]
+
+	const namesWithoutApostrophe = ["Farfetchd","Sirfetchd"]
+	const namesWithApostrophe = ["Farfetch'd","Sirfetch'd"]
+
+	const namesWithoutDiacritic = ["Flabebe"]
+	const namesWithDiacritic = ["Flabébé"]
+
+	const namesWithoutGenderSymbol = ["Nidoran F", "Nidoran M"]
+	const namesWithGenderSymbol = ["Nidoran♀", "Nidoran♂"]
+
+	const namesWithoutColon = ["Type Null"]
+	const namesWithColon = ["Type: Null"]
+
+	const namesWithoutExtraCharacters = [namesWithoutPeriod,namesWithoutApostrophe,namesWithoutDiacritic,namesWithoutGenderSymbol,namesWithoutColon]
+	const namesWithExtraCharacters = [namesWithPeriod,namesWithApostrophe,namesWithDiacritic,namesWithGenderSymbol,namesWithColon]
+
+	for(let i = 0; i < namesWithoutExtraCharacters.length; i++){
+		for(let j = 0; j < namesWithoutExtraCharacters[i].length; j++){
+			if ( target == namesWithoutExtraCharacters[i][j]){
+				target = namesWithExtraCharacters[i][j]
+			}
+			
+		}
+	}
+
+	return target;
 }

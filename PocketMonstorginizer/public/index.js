@@ -15,7 +15,7 @@
 
 // Fetch data from the PokeAPI.
 import { fetchPokemonData, fetchDefaultFormData } from "./api.js";
-import { specialPokeName } from "./utils.js";
+import { specialPokeName, normalizePokeName } from "./utils.js";
 
 // Updates the page with fetched data, displays the image, and changes the background color based on the Pokémon's color.
 import {
@@ -113,7 +113,7 @@ pokeSearch.addEventListener("keydown", function (event) {
  */
 function updateExternalLinks(pokemonName) {
   // Create the URL for Bulbapedia using the Pokémon name.
-  const bulbapediaURL = `https://bulbapedia.bulbagarden.net/wiki/${pokemonName}`;
+  const bulbapediaURL = `https://bulbapedia.bulbagarden.net/wiki/${normalizePokeName(pokemonName)}`;
 
   // Find the Bulbapedia link element and set its href to the Bulbapedia URL.
   document.getElementById("BulbaLink").href = bulbapediaURL;

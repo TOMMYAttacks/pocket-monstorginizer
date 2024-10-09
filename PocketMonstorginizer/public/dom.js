@@ -12,7 +12,13 @@
  */
 
 // Helper function to Capitalize the first letter of a string to uppercase.
-import { capitalize } from "./utils.js";
+import { capitalize, normalizePokeName } from "./utils.js";
+
+import { fetchDefaultFormData } from "./api.js";
+
+import {getPokeColor, getPokeEggGroup1, getPokeEggGroup2, getPokeGenderRate,
+		getPokeGeneration, getPokeShape, getPokeTypeA, getPokeTypeB
+		} from "./getInfo.js";
 
 /**
  * Updates the Pokémon information on the webpage.
@@ -20,9 +26,9 @@ import { capitalize } from "./utils.js";
  * @param  pokemonSpecies   the data of the Pokémon.
  * @return none             updates the page with the Pokémon info; no return.
  */
-export function updatePokeInfo(pokemonSpecies) {
+export async function updatePokeInfo(pokemonSpecies) {
   // Update the Pokémon's name and capitalize the first letter.
-  document.getElementById("PokeName").innerHTML = capitalize(
+  document.getElementById("PokeName").innerHTML = normalizePokeName(
     pokemonSpecies.name
   );
 
@@ -39,8 +45,36 @@ export function updatePokeInfo(pokemonSpecies) {
     "#" + pokemonSpecies.id.toString().padStart(3, "0");
 
   // Display the generation of the Pokémon.
-  document.getElementById("PokeGen").innerHTML = pokemonSpecies.generation.name;
-}
+  document.getElementById("PokeGen").innerHTML = getPokeGeneration(pokemonSpecies);
+  
+  
+  let defultPokemonForm = await fetchDefaultFormData(pokemonSpecies)
+  // Display Pokémon's First type
+  document.getElementById("TypeA").innerHTML = capitalize(getPokeTypeA(defultPokemonForm));
+  
+  // Display Pokémon's Second type
+  document.getElementById("TypeB").innerHTML = getPokeTypeB(defultPokemonForm) != "" ? "/" + capitalize(getPokeTypeB(defultPokemonForm)) : "";
+  
+
+  // Display Pokémon's color
+  document.getElementById("PokeColor").innerHTML = capitalize(getPokeColor(pokemonSpecies));
+  
+  // Display Pokémon's shape
+  document.getElementById("PokeShape").innerHTML = capitalize(getPokeShape(pokemonSpecies));
+  
+  //Display Pokémon's gender rate
+  document.getElementById("PokeGenderRate").innerHTML = getPokeGenderRate(pokemonSpecies);
+  
+  //Display Pokémon's First Egg Group
+  document.getElementById("PokeEggGroup1").innerHTML = capitalize(getPokeEggGroup1(pokemonSpecies));
+  
+  //Display Pokémon's Second Egg Group
+  document.getElementById("PokeEggGroup2").innerHTML = getPokeEggGroup2(pokemonSpecies) != "" ? "/" + capitalize(getPokeEggGroup2(pokemonSpecies)) : "";
+  
+  
+  }
+  
+
 
 /**
  * Displays the Pokémon's image on the webpage.
