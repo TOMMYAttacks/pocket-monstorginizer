@@ -26,7 +26,7 @@ Components:
   </head>
   <body>
     <div class="Main">
-      <h1 id="PokeName">Pokémon Searcher</h1>
+      <h1 id="PokeName">Pocket Monstorginizer</h1>
       <img
         id="pokeImg"
         alt="Pokemon Image"
@@ -34,8 +34,7 @@ Components:
         style="display: none; width: 130px; height: 130px"
       />
       <p id="PokeInfo">
-        A tool for searching Pokémon! Type in a name of a Pokémon species, and
-        you will see all sorts of info on it!
+        A tool for randomly searching up on Pokémon! Get a random Pokémon to see all sorts of info on that species! If you want info on a particular Pokémon species, just search up its name!
       </p>
       <p><code id="TypeA">TypeA</code><code id="TypeB">/TypeB</code></p>
       <p>
@@ -60,9 +59,16 @@ Components:
         <code id="PokeGenderRate">GenderRate</code> |
       </p>
       <p>
-        <label for="PokeSearch">Search Pokémon:</label>
+      	<button id="randomDraw" style="width: 179px; height: 26px">Get a Random Pokémon!</button>
+      </p>
+      
+      
+      <p>
+        <label for="PokeSearch"></label>
         <input type="text" id="PokeSearch" placeholder="Enter Pokémon name" />
         <button id="enter" style="width: 103px; height: 26px">Search</button>
+
+
       </p>
       <p>
         Bulbapedia:

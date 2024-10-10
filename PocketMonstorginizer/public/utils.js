@@ -22,11 +22,11 @@ export function validatePokeName(target) {
   for (let i = 0; i < target.length; i++) {
     let testChar = target.charAt(i); // Get the current character.
 
-    // If the character is not a space, a '2', or a letter, remove it.
+    // If the character is not a space, a number, or a letter, remove it.
     if (
       testChar != " " &&
-      testChar != "2" &&
       !(
+		(testChar >= "0" && testChar <= "9") || //This allows it so that we can directly type in id numbers.
         (testChar >= "a" && testChar <= "z") ||
         (testChar >= "A" && testChar <= "Z")
       )

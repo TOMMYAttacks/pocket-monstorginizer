@@ -16,6 +16,7 @@
 // Fetch data from the PokeAPI.
 import { fetchPokemonData, fetchDefaultFormData } from "./api.js";
 import { specialPokeName, normalizePokeName } from "./utils.js";
+import {randomID} from "./randomizer.js"
 
 // Updates the page with fetched data, displays the image, and changes the background color based on the Pokémon's color.
 import {
@@ -35,6 +36,9 @@ function sanitizeText(text) {
   return text.split("\f").join(" ");
 }
 
+//Get the random search button from the page
+const randomButton = document.getElementById("randomDraw");
+
 // Get the search button element from the page.
 const searchButton = document.getElementById("enter");
 
@@ -45,11 +49,12 @@ const pokeSearch = document.getElementById("PokeSearch");
  * Handles the search function, fetches the data from the API, updates the page with the details,
  * and sets the image and links.
  *
+ * @param target	The string used to search for a Pokemon species. This may either be a name or an id number.
  * @return none
  */
-async function handleSearch() {
+async function handleSearch(target) {
   // Get the Pokémon name, convert it to lowercase.
-  let target = specialPokeName(pokeSearch.value.toLowerCase());
+  //let target = specialPokeName(pokeSearch.value.toLowerCase());
 
   // Fetch the data.
   let pokemonSpecies = await fetchPokemonData(target);
@@ -87,8 +92,24 @@ async function handleSearch() {
   }
 }
 
+/**
+ * Handles searching for a random pokemon
+ */
+async function randomSearch(){
+	let id = randomID();
+	console.log(id);
+	return (await id).toString();
+}
+
 // Listen for the search button click, run the search.
-searchButton.addEventListener("click", handleSearch);
+searchButton.addEventListener("click", function(){
+	handleSearch(specialPokeName(pokeSearch.value.toLowerCase()))
+});
+
+// Listen for the random button click, run the random searcg.
+randomButton.addEventListener("click", async function(){
+	handleSearch(await randomSearch())
+});
 
 /**
  * Handles when the Enter key press.
@@ -101,7 +122,7 @@ pokeSearch.addEventListener("keydown", function (event) {
   if (event.key === "Enter") {
     // If the Enter key is pressed.
     event.preventDefault(); // Prevent the browser from doing anything.
-    handleSearch(); // Run the search.
+    handleSearch(specialPokeName(pokeSearch.value.toLowerCase())); // Run the search.
   }
 });
 
