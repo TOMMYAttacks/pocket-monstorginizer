@@ -65,7 +65,8 @@ async function handleSearch(target) {
     updatePokeInfo(pokemonSpecies);
 
     // Get the description for the from the API data.
-    let rawText = pokemonSpecies.flavor_text_entries[1].flavor_text;
+    let rawText = (pokemonSpecies.flavor_text_entries.length > 1 ? pokemonSpecies.flavor_text_entries[1].flavor_text : pokemonSpecies.flavor_text_entries[0].flavor_text);
+	console.log(pokemonSpecies.flavor_text_entries)
 
     // Clean up the text to render without any problematic characters.
     let sanitizedText = sanitizeText(rawText);

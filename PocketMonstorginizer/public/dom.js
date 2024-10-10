@@ -39,8 +39,7 @@ export async function updatePokeInfo(pokemonSpecies) {
   );
 
   // Render a short description.
-  document.getElementById("PokeInfo").innerHTML =
-    pokemonSpecies.flavor_text_entries[1].flavor_text;
+  document.getElementById("PokeInfo").innerHTML = (pokemonSpecies.flavor_text_entries.length > 1 ? pokemonSpecies.flavor_text_entries[1].flavor_text : pokemonSpecies.flavor_text_entries[0].flavor_text);
 
   // Show the Pokémon's grouping.
   document.getElementById("Grouping").innerHTML =
