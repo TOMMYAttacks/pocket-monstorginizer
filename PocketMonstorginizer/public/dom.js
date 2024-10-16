@@ -1,152 +1,119 @@
-/**
- * Display Utilities
- *
- * This file provides functions for updating the webpage with details, such as name, image, category,
- * generation, and background color.
- *
- * Functions:
- * 1. updatePokeInfo(pokemonSpecies) - Updates the page with the Pokémon's name, description, ID, and generation.
- * 2. showPokeImage(imageUrl) - Renders the Pokémon's image on the page.
- * 3. findPokeGrouping(pokemonSpecies) - Displays whatever grouping the Pokémon falls in
- * 4  addSlashIfNeeded(string) - Adds a slash to the PokeGroup string in cases that a Pokemon falls into more than one group.
- * 5. changeColorOfBackground(color) - Changes the page's background color to match the Pokémon's color.
- */
+import * as utils from "./utils.js";
+import * as api from "./api.js";
+import * as getInfo from "./getInfo.js";
+import * as group from "./group.js";
 
-// Helper function to Capitalize the first letter of a string to uppercase.
-import { capitalize, normalizePokeName } from "./utils.js";
-
-import { fetchDefaultFormData } from "./api.js";
-
-import {getPokeColor, getPokeEggGroup1, getPokeEggGroup2, getPokeGenderRate,
-		getPokeGeneration, getPokeShape, getPokeTypeA, getPokeTypeB,
-		getIsBranching, getPokeEvoLineType, getPokeEvoStage
-		} from "./getInfo.js";
-		
-import {isBaby, isEeveelution, isElectricRodent,
-		isFossil, isLegend, isMythic,
-		isParadox, isPseudoLegend, isStarter, isUltraBeast } from "./group.js";
-
-/**
- * Updates the Pokémon information on the webpage.
- *
- * @param  pokemonSpecies   the data of the Pokémon.
- * @return none             updates the page with the Pokémon info; no return.
- */
 export async function updatePokeInfo(pokemonSpecies) {
-  // Update the Pokémon's name and capitalize the first letter.
-  document.getElementById("PokeName").innerHTML = normalizePokeName(
+  document.getElementById("PokeName").innerHTML = utils.normalizePokeName(
     pokemonSpecies.name
   );
 
-  // Render a short description.
-  document.getElementById("PokeInfo").innerHTML = (pokemonSpecies.flavor_text_entries.length > 1 ? pokemonSpecies.flavor_text_entries[1].flavor_text : pokemonSpecies.flavor_text_entries[0].flavor_text);
+  document.getElementById("PokeInfo").innerHTML =
+    pokemonSpecies.flavor_text_entries.length > 1
+      ? pokemonSpecies.flavor_text_entries[1].flavor_text
+      : pokemonSpecies.flavor_text_entries[0].flavor_text;
 
-  // Show the Pokémon's grouping.
-  document.getElementById("Grouping").innerHTML =
-    await findPokeGrouping(pokemonSpecies)// + " Pokémon";
+  document.getElementById("Grouping").innerHTML = await findPokeGrouping(
+    pokemonSpecies
+  );
 
-  // Display the Pokémon's ID number, formatted to 3 digits.
   document.getElementById("IDNum").innerHTML =
     "#" + pokemonSpecies.id.toString().padStart(3, "0");
 
-  // Display the generation of the Pokémon.
-  document.getElementById("PokeGen").innerHTML = getPokeGeneration(pokemonSpecies);
-  
-  
-  let defultPokemonForm = await fetchDefaultFormData(pokemonSpecies)
-  // Display Pokémon's First type
-  document.getElementById("TypeA").innerHTML = capitalize(getPokeTypeA(defultPokemonForm));
-  
-  // Display Pokémon's Second type
-  document.getElementById("TypeB").innerHTML = getPokeTypeB(defultPokemonForm) != "" ? "/" + capitalize(getPokeTypeB(defultPokemonForm)) : "";
-  
+  document.getElementById("PokeGen").innerHTML =
+    getInfo.getPokeGeneration(pokemonSpecies);
 
-  // Display Pokémon's color
-  document.getElementById("PokeColor").innerHTML = capitalize(getPokeColor(pokemonSpecies));
-  
-  // Display Pokémon's shape
-  document.getElementById("PokeShape").innerHTML = capitalize(getPokeShape(pokemonSpecies));
-  
-  
-  //Display Pokémon's gender rate
-  document.getElementById("PokeGenderRate").innerHTML = getPokeGenderRate(pokemonSpecies);
-  
-  
-  //Display Pokémon's First Egg Group
-  document.getElementById("PokeEggGroup1").innerHTML = capitalize(getPokeEggGroup1(pokemonSpecies));
-  
-  //Display Pokémon's Second Egg Group
-  document.getElementById("PokeEggGroup2").innerHTML = getPokeEggGroup2(pokemonSpecies) != "" ? "/" + capitalize(getPokeEggGroup2(pokemonSpecies)) : "";
-  
-  
-  //Display if the Pokémon's evolution line is branching or linear
-  document.getElementById("PokeEvoDoesBranch").innerHTML = await getIsBranching(pokemonSpecies);
-  
-  //Display Pokémon Stage of Evolution
-  document.getElementById("PokeEvoStage").innerHTML = await getPokeEvoStage(pokemonSpecies);
-  
-  //Display Pokémon's type of Evolution Line
-  document.getElementById("PokeEvoLineType").innerHTML = await getPokeEvoLineType(pokemonSpecies);
-  
-  
-  }
-  
+  let defultPokemonForm = await api.fetchDefaultFormData(pokemonSpecies);
 
+  document.getElementById("TypeA").innerHTML = utils.capitalize(
+    getInfo.getPokeTypeA(defultPokemonForm)
+  );
 
-/**
- * Displays the Pokémon's image on the webpage.
- *
- * @param  imageUrl   the URL of the image.
- * @return none       update page with the image; no return.
- */
+  document.getElementById("TypeB").innerHTML =
+    getInfo.getPokeTypeB(defultPokemonForm) != ""
+      ? "/" + utils.capitalize(getInfo.getPokeTypeB(defultPokemonForm))
+      : "";
+
+  updatePokemonColor(pokemonSpecies);
+
+  document.getElementById("PokeShape").innerHTML = utils.capitalize(
+    getInfo.getPokeShape(pokemonSpecies)
+  );
+
+  document.getElementById("PokeGenderRate").innerHTML =
+    getInfo.getPokeGenderRate(pokemonSpecies);
+
+  document.getElementById("PokeEggGroup1").innerHTML = utils.capitalize(
+    getInfo.getPokeEggGroup1(pokemonSpecies)
+  );
+
+  document.getElementById("PokeEggGroup2").innerHTML =
+    getInfo.getPokeEggGroup2(pokemonSpecies) != ""
+      ? "/" + utils.capitalize(getInfo.getPokeEggGroup2(pokemonSpecies))
+      : "";
+
+  document.getElementById("PokeEvoDoesBranch").innerHTML =
+    await getInfo.getIsBranching(pokemonSpecies);
+
+  document.getElementById("PokeEvoStage").innerHTML =
+    await getInfo.getPokeEvoStage(pokemonSpecies);
+
+  document.getElementById("PokeEvoLineType").innerHTML =
+    await getInfo.getPokeEvoLineType(pokemonSpecies);
+}
+
 export function showPokeImage(imageUrl) {
-  // Get the image element.
   let pokeImg = document.getElementById("pokeImg");
 
-  // Set the image element's source to the image URL.
   pokeImg.src = imageUrl;
 
-  // Render image.
   pokeImg.style.display = "block";
 }
 
-/**
- * Returns a string representing the group/groups that the Pokémon belongs to
- * 
- * @param  pokemonSpecies	Given Pokémon Species
- * @return string			Group/Groups Pokémon Belongs to
- */
-export async function findPokeGrouping(pokemonSpecies){
-	let grouping = "";
-	if (await isStarter(pokemonSpecies)){grouping = addSlashIfNeeded(grouping) + "First Partner"};
-	if (await isLegend(pokemonSpecies)){grouping = addSlashIfNeeded(grouping) + "Legendary"};
-	if (await isMythic(pokemonSpecies)){grouping = addSlashIfNeeded(grouping) + "Mythical"};
-	if (await isUltraBeast(pokemonSpecies)){grouping = addSlashIfNeeded(grouping) + "Ultra Beast"}
-	if (await isParadox(pokemonSpecies)){grouping = addSlashIfNeeded(grouping) + "Paradox"}
-	if (await isFossil(pokemonSpecies)){grouping = addSlashIfNeeded(grouping) + "Fossil"};
-	if (await isBaby(pokemonSpecies)){grouping = addSlashIfNeeded(grouping) + "Baby"};
-	if (await isPseudoLegend(pokemonSpecies)){grouping = addSlashIfNeeded(grouping) + "Pseudo-Legendary"}
-	if (await isEeveelution(pokemonSpecies)){grouping = addSlashIfNeeded(grouping) + "Eeveelution"};
-	if (await isElectricRodent(pokemonSpecies)){grouping = addSlashIfNeeded(grouping) + "Electric Rodent"};
-	if (grouping == ""){grouping += "Regular"};
+export async function findPokeGrouping(pokemonSpecies) {
+  let grouping = "";
+  if (await group.isStarter(pokemonSpecies)) {
+    grouping = addSlashIfNeeded(grouping) + "First Partner";
+  }
+  if (await group.isLegend(pokemonSpecies)) {
+    grouping = addSlashIfNeeded(grouping) + "Legendary";
+  }
+  if (await group.isMythic(pokemonSpecies)) {
+    grouping = addSlashIfNeeded(grouping) + "Mythical";
+  }
+  if (await group.isUltraBeast(pokemonSpecies)) {
+    grouping = addSlashIfNeeded(grouping) + "Ultra Beast";
+  }
+  if (await group.isParadox(pokemonSpecies)) {
+    grouping = addSlashIfNeeded(grouping) + "Paradox";
+  }
+  if (await group.isFossil(pokemonSpecies)) {
+    grouping = addSlashIfNeeded(grouping) + "Fossil";
+  }
+  if (await group.isBaby(pokemonSpecies)) {
+    grouping = addSlashIfNeeded(grouping) + "Baby";
+  }
+  if (await group.isPseudoLegend(pokemonSpecies)) {
+    grouping = addSlashIfNeeded(grouping) + "Pseudo-Legendary";
+  }
+  if (await group.isEeveelution(pokemonSpecies)) {
+    grouping = addSlashIfNeeded(grouping) + "Eeveelution";
+  }
+  if (await group.isElectricRodent(pokemonSpecies)) {
+    grouping = addSlashIfNeeded(grouping) + "Electric Rodent";
+  }
+  if (grouping == "") {
+    grouping += "Regular";
+  }
 
-	return grouping;
-	
+  return grouping;
 }
 
-/**Adds a slash to the PokeGroup string in cases that a Pokemon falls into more than one group. */
-function addSlashIfNeeded(string){
-	return string == "" ? string : string + "/";
+function addSlashIfNeeded(string) {
+  return string == "" ? string : string + "/";
 }
 
-/**
- * Changes the background color of the page based on the Pokémon's main color.
- *
- * @param  color   the main color of the Pokémon.
- * @return none    updates the page's background color; no return.
- */
 export function changeColorOfBackground(color) {
-  // Background color variable.
   let newColor = "";
 
   // Decide which background color to set based on the Pokémon's color.
@@ -185,6 +152,243 @@ export function changeColorOfBackground(color) {
       newColor = "#aae1e1";
   }
 
-  // Render new background color.
   document.body.style.backgroundColor = newColor;
 }
+
+export function initializeTabs() {
+  const tabLinks = document.querySelectorAll(".tablinks");
+  const tabContents = document.querySelectorAll(".tabcontent");
+
+  tabContents.forEach((content) => {
+    content.style.display = "none";
+  });
+
+  tabLinks.forEach((tab) => {
+    tab.addEventListener("click", function () {
+      const tabName = this.getAttribute("data-tab");
+
+      const targetTabContent = document.getElementById(tabName);
+
+      if (targetTabContent.style.display === "none") {
+        tabContents.forEach((content) => (content.style.display = "none"));
+
+        tabLinks.forEach((link) => link.classList.remove("active"));
+
+        targetTabContent.style.display = "block";
+        this.classList.add("active");
+      } else {
+        targetTabContent.style.display = "none";
+        this.classList.remove("active");
+      }
+    });
+  });
+}
+
+export function initializeSearchEvents(handleSearch, randomIDFunc) {
+  const searchButton = document.getElementById("enter");
+  const pokeSearch = document.getElementById("PokeSearch");
+  const randomButton = document.getElementById("randomDraw");
+
+  searchButton.addEventListener("click", () => {
+    const searchValue = pokeSearch.value.trim().toLowerCase();
+    if (searchValue) {
+      handleSearch(searchValue);
+    } else {
+      alert("Please enter a valid Pokémon name or ID");
+    }
+  });
+
+  randomButton.addEventListener("click", async () => {
+    try {
+      const randomId = await randomIDFunc();
+      if (randomId) {
+        handleSearch(randomId.toString());
+      } else {
+        console.error("Random ID function returned an invalid value");
+      }
+    } catch (error) {
+      console.error("Error while fetching random ID:", error);
+    }
+  });
+
+  pokeSearch.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      const searchValue = pokeSearch.value.trim().toLowerCase();
+      if (searchValue) {
+        handleSearch(searchValue);
+      } else {
+        alert("Please enter a valid Pokémon name or ID");
+      }
+    }
+  });
+}
+
+async function updatePokemonColor(pokemonSpecies) {
+  const defaultFormData = await api.fetchDefaultFormData(pokemonSpecies);
+
+  if (defaultFormData && defaultFormData.color) {
+    const pokeColor = defaultFormData.color.name;
+    const capitalizedColor = utils.capitalize(pokeColor);
+    document.getElementById("PokeColor").innerHTML = capitalizedColor;
+  } else {
+    console.error("Color data is missing or undefined");
+  }
+}
+
+export function openTab(event, tabName) {
+  const tabcontent = document.getElementsByClassName("tabcontent");
+
+  for (let i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  const tablinks = document.getElementsByClassName("tablinks");
+
+  for (let i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  const selectedTabContent = document.getElementById(tabName);
+  if (selectedTabContent) {
+    selectedTabContent.style.display = "block";
+    event.currentTarget.className += " active";
+  } else {
+    console.error("Tab content not found for:", tabName);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  function manageSelectNoneAndAll(
+    tabId,
+    checkboxSelector,
+    selectAllId,
+    selectNoneId
+  ) {
+    const checkboxes = [
+      ...document.querySelectorAll(`#${tabId} ${checkboxSelector}`),
+    ];
+    const selectAll = document.getElementById(selectAllId);
+    const selectNone = document.getElementById(selectNoneId);
+
+    const filteredCheckboxes = checkboxes.filter(
+      (checkbox) => checkbox !== selectAll && checkbox !== selectNone
+    );
+
+    selectAll.addEventListener("click", function () {
+      filteredCheckboxes.forEach((checkbox) => {
+        checkbox.checked = true;
+      });
+      selectNone.checked = false;
+    });
+
+    selectNone.addEventListener("click", function () {
+      filteredCheckboxes.forEach((checkbox) => {
+        checkbox.checked = false;
+      });
+      selectAll.checked = false;
+    });
+
+    filteredCheckboxes.forEach((checkbox) => {
+      checkbox.addEventListener("click", function () {
+        if (this.checked) {
+          selectNone.checked = false;
+        }
+
+        if (filteredCheckboxes.every((cb) => cb.checked)) {
+          selectAll.checked = true;
+        } else {
+          selectAll.checked = false;
+        }
+
+        if (!this.checked) {
+          selectAll.checked = false;
+        }
+      });
+    });
+  }
+
+  manageSelectNoneAndAll(
+    "Generation-Tab",
+    "input[type='checkbox']",
+    "generationSelectAll",
+    "generationSelectNone"
+  );
+
+  manageSelectNoneAndAll(
+    "Grouping-Tab",
+    "input[type='checkbox']",
+    "groupingSelectAll",
+    "groupingSelectNone"
+  );
+
+  manageSelectNoneAndAll(
+    "PrimaryType-Tab",
+    "input[type='checkbox']",
+    "primarySelectAll",
+    "primarySelectNone"
+  );
+
+  manageSelectNoneAndAll(
+    "SecondaryType-Tab",
+    "input[type='checkbox']",
+    "secondarySelectAll",
+    "secondarySelectNone"
+  );
+
+  manageSelectNoneAndAll(
+    "Color-Tab",
+    "input[type='checkbox']",
+    "colorSelectAll",
+    "colorSelectNone"
+  );
+
+  manageSelectNoneAndAll(
+    "Shape-Tab",
+    "input[type='checkbox']",
+    "shapeSelectAll",
+    "shapeSelectNone"
+  );
+
+  manageSelectNoneAndAll(
+    "GenderRate-Tab",
+    "input[type='checkbox']",
+    "genderRateSelectAll",
+    "genderRateSelectNone"
+  );
+
+  manageSelectNoneAndAll(
+    "EvoStag-Tab",
+    "input[type='checkbox']",
+    "evoStagSelectAll",
+    "evoStagSelectNone"
+  );
+
+  manageSelectNoneAndAll(
+    "EvoLineType-Tab",
+    "input[type='checkbox']",
+    "evoLineTypeSelectAll",
+    "evoLineTypeSelectNone"
+  );
+
+  manageSelectNoneAndAll(
+    "BranchingEvo-Tab",
+    "input[type='checkbox']",
+    "branchingEvoSelectAll",
+    "branchingEvoSelectNone"
+  );
+
+  manageSelectNoneAndAll(
+    "EggGroup-Tab",
+    "input[type='checkbox']",
+    "eggGroupSelectAll",
+    "eggGroupSelectNone"
+  );
+
+  manageSelectNoneAndAll(
+    "OtherEggGroup-Tab",
+    "input[type='checkbox']",
+    "otherEggGroupSelectAll",
+    "otherEggGroupSelectNone"
+  );
+});
