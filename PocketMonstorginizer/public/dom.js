@@ -1,8 +1,24 @@
+/**
+ * Display Utilities
+ *
+ * This file provides functions for updating the webpage with details, such as name, image, category,
+ * generation, and background color.
+ */
+
+
+
+
 import * as utils from "./utils.js";
 import * as api from "./api.js";
 import * as getInfo from "./getInfo.js";
 import * as group from "./group.js";
 
+/**
+ * Updates the Pokémon information on the webpage.
+ *
+ * @param  pokemonSpecies   the data of the Pokémon.
+ * @return none             updates the page with the Pokémon info; no return.
+ */
 export async function updatePokeInfo(pokemonSpecies) {
   document.getElementById("PokeName").innerHTML = utils.normalizePokeName(
     pokemonSpecies.name
@@ -62,6 +78,12 @@ export async function updatePokeInfo(pokemonSpecies) {
     await getInfo.getPokeEvoLineType(pokemonSpecies);
 }
 
+/**
+ * Displays the Pokémon's image on the webpage.
+ *
+ * @param  imageUrl   the URL of the image.
+ * @return none       update page with the image; no return.
+ */
 export function showPokeImage(imageUrl) {
   let pokeImg = document.getElementById("pokeImg");
 
@@ -70,6 +92,12 @@ export function showPokeImage(imageUrl) {
   pokeImg.style.display = "block";
 }
 
+/**
+ * Returns a string representing the group/groups that the Pokémon belongs to
+ * 
+ * @param  pokemonSpecies	Given Pokémon Species
+ * @return string			Group/Groups Pokémon Belongs to
+ */
 export async function findPokeGrouping(pokemonSpecies) {
   let grouping = "";
   if (await group.isStarter(pokemonSpecies)) {
@@ -109,10 +137,17 @@ export async function findPokeGrouping(pokemonSpecies) {
   return grouping;
 }
 
+/**Adds a slash to the PokeGroup string in cases that a Pokemon falls into more than one group. */
 function addSlashIfNeeded(string) {
   return string == "" ? string : string + "/";
 }
 
+/**
+ * Changes the background color of the page based on the Pokémon's main color.
+ *
+ * @param  color   the main color of the Pokémon.
+ * @return none    updates the page's background color; no return.
+ */
 export function changeColorOfBackground(color) {
   let newColor = "";
 
@@ -153,7 +188,9 @@ export function changeColorOfBackground(color) {
   }
 
   document.body.style.backgroundColor = newColor;
+  //document.tabcontent.style.backgroundColor = newColor;
 }
+
 
 export function initializeTabs() {
   const tabLinks = document.querySelectorAll(".tablinks");
@@ -183,6 +220,7 @@ export function initializeTabs() {
     });
   });
 }
+
 
 export function initializeSearchEvents(handleSearch, randomIDFunc) {
   const searchButton = document.getElementById("enter");

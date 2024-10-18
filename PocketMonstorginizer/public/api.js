@@ -1,5 +1,19 @@
+/**
+ * API Data Fetching
+ *
+ * This file contains functions to fetch Pokémon data from the API.
+ */
+
+
 import * as utils from "./utils.js";
 
+
+/**
+ * Fetches the data of a specific Pokémon from the API.
+ *
+ * @param  target   the name of the Pokémon.
+ * @return          the data of the Pokémon if successful, or null if there is an error.
+ */
 export async function fetchPokemonData(target) {
   let targetAPIReady = utils.validatePokeName(target);
 
@@ -15,6 +29,12 @@ export async function fetchPokemonData(target) {
   }
 }
 
+/**
+ * Fetches the default form data of a Pokémon.
+ *
+ * @param  pokemonSpecies   the Pokémon data.
+ * @return                  the Pokémon data or null if there is an error.
+ */
 export async function fetchDefaultFormData(pokemonSpecies) {
   let pokeDefaultFormUrl = pokemonSpecies.varieties[0].pokemon.url;
 

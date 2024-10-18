@@ -1,3 +1,16 @@
+/**
+ * Name Utilities
+ *
+ * This file contains utilities for formatting and validating Pokémon names for API requests and UI display.
+ */
+
+
+/**
+ * Validate the Pokémon name, remove any unwanted characters and replace spaces with hyphens.
+ *
+ * @param  target   the name of the Pokémon.
+ * @return string   the validated name for API use.
+ */
 export function validatePokeName(target) {
   for (let i = 0; i < target.length; i++) {
     let testChar = target.charAt(i);
@@ -21,6 +34,12 @@ export function validatePokeName(target) {
   return target;
 }
 
+/**
+ * Capitalize the first letter of a string and return the updated string.
+ *
+ * @param  string   the input string.
+ * @return string   the sentence case string.
+ */
 export function capitalize(inputString) {
   if (typeof inputString !== "string" || inputString.length === 0) {
     console.error("capitalize() received a non-string input:", inputString);
@@ -30,12 +49,29 @@ export function capitalize(inputString) {
   return inputString.charAt(0).toUpperCase() + inputString.slice(1);
 }
 
+
+/**
+ * Ensure proper text case and handle special cases for hyphens, e.g. (ho-oh).
+ *
+ * @param  target   the name of the Pokémon.
+ * @return string   the hyphenated Pokémon name.
+ */
 export function specialPokeName(target) {
   let updatedName = target.split("-").join(" ");
 
   return updatedName.toLowerCase();
 }
 
+
+/**
+ * 
+ * Takes the Pokémon's name from the PokeAPI and returns the Pokemon's name as how it's written normally.
+ * This includes captalizeing all sections of the name, as well as adding any non letter/number characters.
+ * (e.g., pikachu -> Pikachu, great-tusk -> Great Tusk, ho-oh -> Ho-Oh)
+ * 
+ * @param target	the name of the Pokémon in the API
+ * @return string	the normalized Pokémon name
+ */
 export function normalizePokeName(target) {
   const hyphenExceptions = [
     "ho-oh",
@@ -71,6 +107,13 @@ export function normalizePokeName(target) {
   return target;
 }
 
+/**
+ * Corrects spelling of the Pokémon name in cases when it would need special characters added.
+ * To be used within normalizePokeName
+ * 
+ * @param target	the current spelling of the Pokémon
+ * @return string	the corrected Pokémon name
+ */
 function correctPokeName(target) {
   const namesWithoutPeriod = ["Mime Jr", "Mr Mime", "Mr Rime"];
   const namesWithPeriod = ["Mime Jr.", "Mr. Mime", "Mr. Rime"];
