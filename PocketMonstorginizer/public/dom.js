@@ -12,6 +12,7 @@ import * as utils from "./utils.js";
 import * as api from "./api.js";
 import * as getInfo from "./getInfo.js";
 import * as group from "./group.js";
+import * as fltr from "./filter.js";
 
 /**
  * Updates the Pokémon information on the webpage.
@@ -272,6 +273,31 @@ async function updatePokemonColor(pokemonSpecies) {
   } else {
     console.error("Color data is missing or undefined");
   }
+}
+
+export function initializeFilterCodeboxEvents(){
+	const filterCodeBox = document.getElementById("FilterCodeBox");
+	filterCodeBox.addEventListener("keydown", (event) => {
+		if(event.key === "Enter") {
+			event.preventDefault();
+			applyFilterCode(filterCodeBox.value);
+		}
+	})
+	
+	
+	filterCodeBox.addEventListener("focusout", (event) => {
+		event.preventDefault();
+		applyFilterCode(filterCodeBox.value);
+	});
+}
+
+function applyFilterCode(filterCodeValue){
+		if(filterCodeValue){
+			fltr.applyFilterCode(filterCodeValue)
+		}
+		else{
+			fltr.applyDefaultFilterCode();
+		}
 }
 
 export function openTab(event, tabName) {

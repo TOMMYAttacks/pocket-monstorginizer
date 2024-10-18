@@ -5,5 +5,6 @@ import * as search from "./search.js";
 document.addEventListener("DOMContentLoaded", () => {
   dom.initializeTabs();
   dom.initializeSearchEvents(search.handleSearch, random.filterdRandom);
+  dom.initializeFilterCodeboxEvents();
   dom.initializeGenerationCheckboxes();
 });

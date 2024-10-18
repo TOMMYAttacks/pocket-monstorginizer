@@ -22,7 +22,8 @@ const NUMBER_OF_POKEMON = 1025;
 /**
  * The default filter code for when there is no Pokemon filtered out
  */
-const DEFAULT_FILTER_CODE = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+//const DEFAULT_FILTER_CODE = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+export const DEFAULT_FILTER_CODE = "ffffff ffffff ffffff ffffff ffffff f80000"
 
 /**A code represnting what filters are active */
 let filterCode = "";
@@ -30,6 +31,8 @@ let filterCode = "";
 /**The pool of Pokemon you are able to draw from */
 let pokePool = [];
 
+/**Test FilterCode */
+let testFtrCode = "ffffff ffffff ff003f ffffff ffffff f80000"
 
 /**Returns a random ID for a Pokémon without any filtering*/
 export async function randomID() {
@@ -39,16 +42,22 @@ export async function randomID() {
 
 export async function filterdRandom(){
 	
-	//ftrs.applyFilterCode();
+	console.log(document.getElementById("FilterCodeBox").value)
+	
+	filterCode = document.getElementById("FilterCodeBox").value
 	
 	if(filterCode == ""){
 		filterCode = DEFAULT_FILTER_CODE;
 		//console.log(filterCode);
 	}
-	//filterCode = filterCode != "" ? filterCode : DEFAULT_FILTER_CODE;
+	
+	//ftrs.applyFilterCode(filterCode);
 	
 	console.log(filterCode);
+	
+	
 	let newFilterCode = await ftrs.generateFilterCode();
+	//let newFilterCode = testFtrCode;
 	console.log(newFilterCode);
 	
 	if(newFilterCode == filterCode){
@@ -58,6 +67,8 @@ export async function filterdRandom(){
 		filterCode = newFilterCode;
 	}
 	
+	document.getElementById("FilterCodeBox").value = filterCode;
+	
 	if(filterCode == DEFAULT_FILTER_CODE){
 		console.log("No Filters applyed!");
 		return randomID();
@@ -65,7 +76,7 @@ export async function filterdRandom(){
 	else{
 		pokePool = [1,2,3];
 	}
-	//console.log(filterCode);
+	console.log(filterCode);
 	
 	return pokePool[Math.floor(Math.random() * pokePool.length)];
 }

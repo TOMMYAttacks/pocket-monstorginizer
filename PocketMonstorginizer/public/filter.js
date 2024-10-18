@@ -177,45 +177,69 @@ export const filters = {
 export async function generateFilterCode(){
 	let code = "";
 	
-	//Object.keys(filters).forEach(filterGroup => {
-	//	Object.keys(filterGroup).forEach(filter => {
-			//code += filters[filterGroup][filter].checked ? "1" : "0";
-	//	})
-	//});
 	let count = 0;
 	Object.values(filters).forEach(filterGroup =>{
 		Object.values(filterGroup).forEach(filter =>{
 			code += filter.checked ? "1" : "0";
 			count++;
+			if(count % 24 == 0){
+				code += " "}
 		})
 	});
 	
-	//console.log(filters.Grouping.regular.checked);
-	//console.log(count);
+	//console.log(parseInt(code));
+	//console.log(parseInt(code,2));
+	//console.log(parseInt(code,2).toString(16));
+	
+	//console.log(binaryStringToHex(code));
+	//console.log(binaryStringToHex(code).replace(/ /g,""));
+	
 
-	return code;
+
+	return binaryStringToHex(code);
 }
 
 /**Applys a filter code  */
 export async function applyFilterCode(code){
 	
-	if(code.length != 125){
+	console.log(code);
+	
+	
+	if(code.length != 41){
 		alert("Not a valid Filter Code! \n Must be 125 characters.");
 		return;
 	}
-
+	
+	for(let i = 0; i < code.replace(/ /g,"").length; i++){
+		let testChar = code.replace(/ /g,"").charAt(i)
+		if(testChar != " "){
+			if( !(
+			   (testChar >= "0" && testChar <= "9") ||
+			   (testChar.toLowerCase() >= "a" && testChar.toLowerCase() <= "f"))) {
+				alert("Not a valid Filter Code! \n Must be a series of hexidecimal numbers.");
+				console.log(testChar);
+				console.log("f".toLowerCase())
+				return;
+			}
+		}
+	}
+	
+	//console.log(hexStringToBinary(code));
+	let binaryCode = hexStringToBinary(code).replace(/ /g,"");
+	//console.log(binaryCode)
+	
 	
 	let values = [];
 	
-	for(let i = 0; i < code.length; i++){
+	for(let i = 0; i < binaryCode.length; i++){
 		
-		switch(code.charAt(i)){
+		switch(binaryCode.charAt(i)){
 			case "0":
 				values[i] = false; break;
 			case "1":
 				values[i] = true; break;
 			default:
-				alert("Not a valid Filter Code! \n Must contain only 1s and 0s.");
+				alert("Not a valid Filter Code!\nMust contain only 1s and 0s.\n" + "Error char -> " + code.charAt(i));
 				return;
 		}
 		
@@ -231,10 +255,82 @@ export async function applyFilterCode(code){
 	return
 }
 
+/**If a false bool, apply the default filter code */
+export async function applyDefaultFilterCode(){
+	applyFilterCode("ffffff ffffff ffffff ffffff ffffff f80000");
+}
 
+/**Converts a string of binary chunks to hexadecimal */
+function binaryStringToHex(binaryString){
+	
+	//console.log("------Binary To Hex Start-------")
+	//console.log("input:" + binaryString);
+	
+	//Segment the string into 16 bit chuncks
+	let chunks = 1;
+	for(let i = 0; i < binaryString.length; i++){
+		if(binaryString.charAt(i) == " "){
+			chunks++;
+		}
+	}
+	//console.log("chunkCount = " + chunks);
 
+	
+	let hexString = "";
+	
+	//Go through each chunk and translate them into hexidecimal
+	for(let chunck = 0; chunck < chunks; chunck++){
+		let currentChunk = binaryString.substr(chunck * (24 + 1), 24).padEnd(24,"0");
+		//currentChunk = currentChunk.padEnd(24,"0"); //Adds 0s to end of last string if its less then the usual length
+		console.log("chunk " + chunck + ": " + currentChunk);
+		//console.log(parseInt(currentChunk,2).toString(16));
+		console.log(parseInt(currentChunk,2).toString(16).padStart(6,"0"));
+		
+		hexString += parseInt(currentChunk,2).toString(16).padStart(6,"0") + " ";
+	}
+	//console.log(hexString.trim());
+	//console.log("------Binary To Hex End-------")
+	
+	return hexString.trim();
+	
+}
 
-
+/**Converts a string of hexadecimal chunks to binary */
+function hexStringToBinary(hexString){
+	
+	//console.log("-------Hex to Binary Start------")
+	//console.log("input:" + hexString);
+	
+	
+	//Segment the string into 16 bit chuncks
+	let chunks = 1;
+	for(let i = 0; i < hexString.length; i++){
+		if(hexString.charAt(i) == " "){
+			chunks++;
+		}
+	}
+	//console.log("chunkCount = " + chunks);
+	
+	//console.log(hexString);
+	
+	let binaryString = "";
+	
+	//Go through each chunk and translate them into binary
+	for(let chunck = 0; chunck < chunks; chunck++){
+		let currentChunk = hexString.substr(chunck * (6 + 1), 6).padEnd(6,"0");
+		//currentChunk = currentChunk.padEnd(6,"0"); //Adds 0s to end of last string if its less then the usual length
+		console.log("chunk " + chunck + ": " + currentChunk);
+		console.log(parseInt(currentChunk,16).toString(2).padStart(24,"0"));
+		
+		binaryString += parseInt(currentChunk,16).toString(2).padStart(24,"0") + " ";
+	}
+	
+	//console.log(binaryString.trim());
+	//console.log("------Hex to Binary End-------")
+	
+	return binaryString.trim();
+	
+}
 
 
 
