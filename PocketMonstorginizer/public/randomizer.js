@@ -44,7 +44,7 @@ export async function filterdRandom(){
 	
 	console.log(document.getElementById("FilterCodeBox").value)
 	
-	filterCode = document.getElementById("FilterCodeBox").value
+	//newFilterCode = document.getElementById("FilterCodeBox").value
 	
 	if(filterCode == ""){
 		filterCode = DEFAULT_FILTER_CODE;
@@ -53,18 +53,19 @@ export async function filterdRandom(){
 	
 	//ftrs.applyFilterCode(filterCode);
 	
-	console.log(filterCode);
+	console.log("current filter code: " + filterCode);
 	
 	
 	let newFilterCode = await ftrs.generateFilterCode();
 	//let newFilterCode = testFtrCode;
-	console.log(newFilterCode);
+	console.log("New Filter Code: " + newFilterCode);
 	
-	if(newFilterCode == filterCode){
-		console.log("Filter Unchanged!");
+	if(newFilterCode != filterCode){
+		console.log("Filter Changed!");
+		filterCode = newFilterCode;
 	}
 	else{
-		filterCode = newFilterCode;
+		console.log("Filter Unchanged!");
 	}
 	
 	document.getElementById("FilterCodeBox").value = filterCode;
@@ -74,9 +75,16 @@ export async function filterdRandom(){
 		return randomID();
 	}
 	else{
-		pokePool = [1,2,3];
+		/**Just some testing stuff */
+		if(filterCode.charAt(0) == "f"){
+			pokePool = [1,2,3];
+		}
+		else{
+			pokePool = [4,5,6];
+		}
+
 	}
-	console.log(filterCode);
+	console.log("Applyed Filter code: " + filterCode);
 	
 	return pokePool[Math.floor(Math.random() * pokePool.length)];
 }
