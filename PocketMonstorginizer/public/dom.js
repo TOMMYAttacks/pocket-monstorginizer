@@ -39,6 +39,9 @@ export async function updatePokeInfo(pokemonSpecies) {
 
   document.getElementById("PokeGen").innerHTML =
     getInfo.getPokeGeneration(pokemonSpecies);
+	
+	updatePokemonColor(pokemonSpecies);
+	
 
   let defultPokemonForm = await api.fetchDefaultFormData(pokemonSpecies);
 
@@ -50,8 +53,6 @@ export async function updatePokeInfo(pokemonSpecies) {
     getInfo.getPokeTypeB(defultPokemonForm) != ""
       ? "/" + utils.capitalize(getInfo.getPokeTypeB(defultPokemonForm))
       : "";
-
-  updatePokemonColor(pokemonSpecies);
 
   document.getElementById("PokeShape").innerHTML = utils.capitalize(
     getInfo.getPokeShape(pokemonSpecies)
@@ -263,17 +264,11 @@ export function initializeSearchEvents(handleSearch, randomIDFunc) {
   });
 }
 
-async function updatePokemonColor(pokemonSpecies) {
-  const defaultFormData = await api.fetchDefaultFormData(pokemonSpecies);
-
-  if (defaultFormData && defaultFormData.color) {
-    const pokeColor = defaultFormData.color.name;
+export async function updatePokemonColor(pokemonSpecies) {
+    const pokeColor = pokemonSpecies.color.name;
     const capitalizedColor = utils.capitalize(pokeColor);
     document.getElementById("PokeColor").innerHTML = capitalizedColor;
-  } else {
-    console.error("Color data is missing or undefined");
   }
-}
 
 export function initializeFilterCodeboxEvents(){
 	const filterCodeBox = document.getElementById("FilterCodeBox");
