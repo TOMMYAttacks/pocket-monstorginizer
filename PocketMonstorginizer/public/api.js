@@ -15,7 +15,7 @@ import * as utils from "./utils.js";
  * @return          the data of the Pokémon if successful, or null if there is an error.
  */
 export async function fetchPokemonData(target) {
-  let targetAPIReady = utils.validatePokeName(target);
+  let targetAPIReady = utils.validatePokeName(utils.specialPokeName(target));
 
   const url = `https://pokeapi.co/api/v2/pokemon-species/${targetAPIReady}`;
 
