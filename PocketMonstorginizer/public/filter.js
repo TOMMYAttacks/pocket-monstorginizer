@@ -18,6 +18,7 @@ export const NUMBER_OF_POKEMON = 1025;
 export const filters = {
 	Grouping : {
 		regular : document.getElementById("regular"),
+		firstPartner : document.getElementById("firstPartner"),
 		baby : document.getElementById("baby"),
 		eeveelution : document.getElementById("eeveelution"),
 		electricRodent : document.getElementById("electricRodent"),
@@ -154,7 +155,7 @@ export const filters = {
 		Flying: document.getElementById("eggFlying"),
 		Amorphous: document.getElementById("eggAmorphous"),
 		Field: document.getElementById("eggField"),
-		Fairy: document.getElementById("eggMonster"),
+		Fairy: document.getElementById("eggFairy"),
 		Grass: document.getElementById("eggGrass"),
 		Dragon: document.getElementById("eggDragon"),
 		Ditto: document.getElementById("eggDitto"),
@@ -173,7 +174,7 @@ export const filters = {
 		Flying: document.getElementById("eggOtherFlying"),
 		Amorphous: document.getElementById("eggOtherAmorphous"),
 		Field: document.getElementById("eggOtherField"),
-		Fairy: document.getElementById("eggOtherMonster"),
+		Fairy: document.getElementById("eggOtherFairy"),
 		Grass: document.getElementById("eggOtherGrass"),
 		Dragon: document.getElementById("eggOtherDragon"),
 		None: document.getElementById("eggOtherNone")
@@ -359,27 +360,792 @@ export async function generateNewPokePool(){
 		
 		testPokemonSpecies = await api.fetchPokemonData(i);
 		
+		console.log(i + " " + testPokemonSpecies);
 		console.log(testPokemonSpecies);
+		
 		//Check pokemon's grouping
+		
 		if(!filters.Grouping.regular.checked){
 			if(await group.isRegular(testPokemonSpecies)){
-				console.log("is this pokemon normal?" + await group.isRegular(testPokemonSpecies))
-				count++;
+				//console.log("is this pokemon normal?" + await group.isRegular(testPokemonSpecies))
+				//count++;
+				continue;
+			}
+		}
+		
+		if(!filters.Grouping.firstPartner.checked){
+			if(await group.isStarter(testPokemonSpecies)){
+				continue;
+			}
+		}
+		
+		if(!filters.Grouping.legendary.checked){
+			if(await group.isLegend(testPokemonSpecies)){
+				continue;
+			}
+		}
+		
+		if(!filters.Grouping.mythical.checked){
+			if(await group.isMythic(testPokemonSpecies)){
+				continue;
+			}
+		}
+		
+		if(!filters.Grouping.pseudoLegendary.checked){
+			if(await group.isPseudoLegend(testPokemonSpecies)){
+				continue;
+			}
+		}
+		
+		if(!filters.Grouping.paradox.checked){
+			if(await group.isParadox(testPokemonSpecies)){
+				continue;
+			}
+		}
+		
+		if(!filters.Grouping.ultraBeast.checked){
+			if(await group.isUltraBeast(testPokemonSpecies)){
+				continue;
+			}
+		}
+		
+		if(!filters.Grouping.fossil.checked){
+			if(await group.isFossil(testPokemonSpecies)){
 				continue;
 			}
 		}
 		
 		
+		if(!filters.Grouping.electricRodent.checked){
+			if(await group.isElectricRodent(testPokemonSpecies)){
+				continue;
+			}
+		}
 		
-		//With all the filters done, add to the pokepool
-		newPokepool.push(i);
+		if(!filters.Grouping.baby.checked){
+			if(await group.isBaby(testPokemonSpecies)){
+				continue;
+			}
+		}
 		
+		if(!filters.Grouping.eeveelution.checked){
+			if(await group.isEeveelution(testPokemonSpecies)){
+				continue;
+			}
+		}
+		
+		//Check Pokemon's Generation
+		
+		
+		if(!filters.Generation.I.checked){
+			if(info.getPokeGeneration(testPokemonSpecies) == "Generation I"){
+				continue;
+			}
+		}
+		
+		if(!filters.Generation.II.checked){
+			if(info.getPokeGeneration(testPokemonSpecies) == "Generation II"){
+				continue;
+			}
+		}
+		
+		if(!filters.Generation.III.checked){
+			if(info.getPokeGeneration(testPokemonSpecies) == "Generation III"){
+				continue;
+			}
+		}
+		
+		if(!filters.Generation.IV.checked){
+			if(info.getPokeGeneration(testPokemonSpecies) == "Generation IV"){
+				continue;
+			}
+		}
+		
+		if(!filters.Generation.V.checked){
+			if(info.getPokeGeneration(testPokemonSpecies) == "Generation V"){
+				continue;
+			}
+		}
+		
+		if(!filters.Generation.VI.checked){
+			if(info.getPokeGeneration(testPokemonSpecies) == "Generation VI"){
+				continue;
+			}
+		}
+		
+		if(!filters.Generation.VII.checked){
+			if(info.getPokeGeneration(testPokemonSpecies) == "Generation VII"){
+				continue;
+			}
+		}
+		
+		if(!filters.Generation.VIII.checked){
+			if(info.getPokeGeneration(testPokemonSpecies) == "Generation VIII"){
+				continue;
+			}
+		}
+		
+		if(!filters.Generation.IX.checked){
+			if(info.getPokeGeneration(testPokemonSpecies) == "Generation IX"){
+				continue;
+			}
+		}
+		
+		//Check Pokemon's color
+		if(!filters.Color.Black.checked){
+			if(info.getPokeColor(testPokemonSpecies) == "black"){
+				continue;
+			}
+		}
+		
+		if(!filters.Color.Blue.checked){
+			if(info.getPokeColor(testPokemonSpecies) == "blue"){
+				continue;
+			}
+		}
+		
+		if(!filters.Color.Brown.checked){
+			if(info.getPokeColor(testPokemonSpecies) == "brown"){
+				continue;
+			}
+		}
+		
+		if(!filters.Color.Gray.checked){
+			if(info.getPokeColor(testPokemonSpecies) == "gray"){
+				continue;
+			}
+		}
+		
+		if(!filters.Color.Green.checked){
+			if(info.getPokeColor(testPokemonSpecies) == "green"){
+				continue;
+			}
+		}
+		
+		if(!filters.Color.Pink.checked){
+			if(info.getPokeColor(testPokemonSpecies) == "pink"){
+				continue;
+			}
+		}
+		
+		if(!filters.Color.Purple.checked){
+			if(info.getPokeColor(testPokemonSpecies) == "purple"){
+				continue;
+			}
+		}
+		
+		if(!filters.Color.Red.checked){
+			if(info.getPokeColor(testPokemonSpecies) == "red"){
+				continue;
+			}
+		}
+		
+		if(!filters.Color.White.checked){
+			if(info.getPokeColor(testPokemonSpecies) == "white"){
+				continue;
+			}
+		}
+		
+		if(!filters.Color.Yellow.checked){
+			if(info.getPokeColor(testPokemonSpecies) == "yellow"){
+				continue;
+			}
+		}
+		
+		//Check pokemon's shape
+		
+		if(!filters.Shape.Armor.checked){
+			if(info.getPokeShape(testPokemonSpecies) == "armor"){
+				continue;
+			}
+		}
+		
+		if(!filters.Shape.Arms.checked){
+			if(info.getPokeShape(testPokemonSpecies) == "arms"){
+				continue;
+			}
+		}
+		
+		if(!filters.Shape.Ball.checked){
+			if(info.getPokeShape(testPokemonSpecies) == "ball"){
+				continue;
+			}
+		}
+		
+		if(!filters.Shape.Blob.checked){
+			if(info.getPokeShape(testPokemonSpecies) == "blob"){
+				continue;
+			}
+		}
+		
+		if(!filters.Shape.BugWings.checked){
+			if(info.getPokeShape(testPokemonSpecies) == "bug-wings"){
+				continue;
+			}
+		}
+
+		if(!filters.Shape.Fish.checked){
+			if(info.getPokeShape(testPokemonSpecies) == "fish"){
+				continue;
+			}
+		}
+		
+		if(!filters.Shape.Heads.checked){
+			if(info.getPokeShape(testPokemonSpecies) == "heads"){
+				continue;
+			}
+		}
+		
+		if(!filters.Shape.Humanoid.checked){
+			if(info.getPokeShape(testPokemonSpecies) == "humanoid"){
+				continue;
+			}
+		}
+		
+		if(!filters.Shape.Legs.checked){
+			if(info.getPokeShape(testPokemonSpecies) == "legs"){
+				continue;
+			}
+		}
+		
+		if(!filters.Shape.Quadruped.checked){
+			if(info.getPokeShape(testPokemonSpecies) == "quadruped"){
+				continue;
+			}
+		}
+		
+		if(!filters.Shape.Squiggle.checked){
+			if(info.getPokeShape(testPokemonSpecies) == "squiggle"){
+				continue;
+			}
+		}
+		
+		if(!filters.Shape.Tentacles.checked){
+			if(info.getPokeShape(testPokemonSpecies) == "tentacles"){
+				continue;
+			}
+		}
+		
+		if(!filters.Shape.Upright.checked){
+			if(info.getPokeShape(testPokemonSpecies) == "upright"){
+				continue;
+			}
+		}
+		
+		if(!filters.Shape.Wings.checked){
+			if(info.getPokeShape(testPokemonSpecies) == "wings"){
+				continue;
+			}
+		}
+		
+		//Get Gender Rate
+		
+		if(!filters.GenderRate.maleOnly.checked){
+			if(info.getPokeGenderRate(testPokemonSpecies) == "Male Only (100% M, 0% F)"){
+				continue;
+			}
+		}
+		
+		if(!filters.GenderRate.normallyMale.checked){
+			if(info.getPokeGenderRate(testPokemonSpecies) == "Normally Male (87.5% M, 12.5% F)"){
+				continue;
+			}
+		}
+		
+		if(!filters.GenderRate.usuallyMale.checked){
+			if(info.getPokeGenderRate(testPokemonSpecies) == "Usually Male (75% M, 25% F)"){
+				continue;
+			}
+		}
+		
+		if(!filters.GenderRate.evenMaleFemale.checked){
+			if(info.getPokeGenderRate(testPokemonSpecies) == "Even Male or Female (50% M, 50% F)"){
+				continue;
+			}
+		}
+		
+		if(!filters.GenderRate.usuallyFemale.checked){
+			if(info.getPokeGenderRate(testPokemonSpecies) == "Usually Female (25% M, 75% F)"){
+				continue;
+			}
+		}
+		
+		if(!filters.GenderRate.normallyFemale.checked){
+			if(info.getPokeGenderRate(testPokemonSpecies) == "Normally Female (12.5% M, 87.5% F)"){
+				continue;
+			}
+		}
+		
+		if(!filters.GenderRate.femaleOnly.checked){
+			if(info.getPokeGenderRate(testPokemonSpecies) == "Female Only (0% M, 100% F)"){
+				continue;
+			}
+		}
+		
+		if(!filters.GenderRate.genderUnknown.checked){
+			if(info.getPokeGenderRate(testPokemonSpecies) == "Gender Unknown (0% M, 0% F)"){
+				continue;
+			}
+		}
+		
+		//Check egg group
+		
+		if(!filters.EggGroup.Ditto.checked){
+			if(info.getPokeEggGroup1(testPokemonSpecies) == "ditto"){
+				continue;
+			}
+		}
+		
+		if(!filters.EggGroup.NoEggs.checked){
+			if(info.getPokeEggGroup1(testPokemonSpecies) == "no eggs discovered"){
+				continue;
+			}
+		}
+		
+		if(!filters.EggGroup.Amorphous.checked){
+			if(info.getPokeEggGroup1(testPokemonSpecies) == "amorphous"){
+				continue;
+			}
+		}
+		
+		if(!filters.EggGroup.Bug.checked){
+			if(info.getPokeEggGroup1(testPokemonSpecies) == "bug"){
+				continue;
+			}
+		}
+		
+		if(!filters.EggGroup.Dragon.checked){
+			if(info.getPokeEggGroup1(testPokemonSpecies) == "dragon"){
+				continue;
+			}
+		}
+		
+		if(!filters.EggGroup.Fairy.checked){
+			if(info.getPokeEggGroup1(testPokemonSpecies) == "fairy"){
+				continue;
+			}
+		}
+		
+		if(!filters.EggGroup.Field.checked){
+			if(info.getPokeEggGroup1(testPokemonSpecies) == "field"){
+				continue;
+			}
+		}
+		
+		if(!filters.EggGroup.Flying.checked){
+			if(info.getPokeEggGroup1(testPokemonSpecies) == "flying"){
+				continue;
+			}
+		}
+		
+		if(!filters.EggGroup.Grass.checked){
+			if(info.getPokeEggGroup1(testPokemonSpecies) == "grass"){
+				continue;
+			}
+		}
+		
+		if(!filters.EggGroup.HumanLike.checked){
+			if(info.getPokeEggGroup1(testPokemonSpecies) == "human-like"){
+				continue;
+			}
+		}
+		
+		if(!filters.EggGroup.Mineral.checked){
+			if(info.getPokeEggGroup1(testPokemonSpecies) == "mineral"){
+				continue;
+			}
+		}
+		
+		if(!filters.EggGroup.Monster.checked){
+			if(info.getPokeEggGroup1(testPokemonSpecies) == "monster"){
+				continue;
+			}
+		}
+		
+		if(!filters.EggGroup.Water1.checked){
+			if(info.getPokeEggGroup1(testPokemonSpecies) == "water1"){
+				continue;
+			}
+		}
+		
+		if(!filters.EggGroup.Water2.checked){
+			if(info.getPokeEggGroup1(testPokemonSpecies) == "water2"){
+				continue;
+			}
+		}
+		
+		if(!filters.EggGroup.Water3.checked){
+			if(info.getPokeEggGroup1(testPokemonSpecies) == "water3"){
+				continue;
+			}
+		}
+		
+		//Check other egg group
+		if(!filters.OtherEggGroup.None.checked){
+			if(info.getPokeEggGroup2(testPokemonSpecies) == ""){
+				continue;
+			}
+		}
+		
+		if(!filters.OtherEggGroup.Amorphous.checked){
+			if(info.getPokeEggGroup2(testPokemonSpecies) == "amorphous"){
+				continue;
+			}
+		}
+
+		if(!filters.OtherEggGroup.Bug.checked){
+			if(info.getPokeEggGroup2(testPokemonSpecies) == "bug"){
+				continue;
+			}
+		}
+
+		if(!filters.OtherEggGroup.Dragon.checked){
+			if(info.getPokeEggGroup2(testPokemonSpecies) == "dragon"){
+				continue;
+			}
+		}
+
+		if(!filters.OtherEggGroup.Fairy.checked){
+			if(info.getPokeEggGroup2(testPokemonSpecies) == "fairy"){
+				continue;
+			}
+		}
+
+		if(!filters.OtherEggGroup.Field.checked){
+			if(info.getPokeEggGroup2(testPokemonSpecies) == "field"){
+				continue;
+			}
+		}
+
+		if(!filters.OtherEggGroup.Flying.checked){
+			if(info.getPokeEggGroup2(testPokemonSpecies) == "flying"){
+				continue;
+			}
+		}
+
+		if(!filters.OtherEggGroup.Grass.checked){
+			if(info.getPokeEggGroup2(testPokemonSpecies) == "grass"){
+				continue;
+			}
+		}
+
+		if(!filters.OtherEggGroup.HumanLike.checked){
+			if(info.getPokeEggGroup2(testPokemonSpecies) == "human-like"){
+				continue;
+			}
+		}
+
+		if(!filters.OtherEggGroup.Mineral.checked){
+			if(info.getPokeEggGroup2(testPokemonSpecies) == "mineral"){
+				continue;
+			}
+		}
+
+		if(!filters.OtherEggGroup.Monster.checked){
+			if(info.getPokeEggGroup2(testPokemonSpecies) == "monster"){
+				continue;
+			}
+		}
+
+		if(!filters.OtherEggGroup.Water1.checked){
+			if(info.getPokeEggGroup2(testPokemonSpecies) == "water1"){
+				continue;
+			}
+		}
+
+		if(!filters.OtherEggGroup.Water2.checked){
+			if(info.getPokeEggGroup2(testPokemonSpecies) == "water2"){
+				continue;
+			}
+		}
+
+		if(!filters.OtherEggGroup.Water3.checked){
+			if(info.getPokeEggGroup2(testPokemonSpecies) == "water3"){
+				continue;
+			}
 		}
 		
 		
-		console.log(newPokepool);
-		console.log(count + " Pokemon are not regular!");
-		return newPokepool
+		//Get branching evo
+		if(!filters.BranchingEvo.branching.checked){
+			if(await info.getIsBranching(testPokemonSpecies) == "Branching Evolution Line"){
+				continue;
+			}
+		}
+		
+		if(!filters.BranchingEvo.linear.checked){
+			if(await info.getIsBranching(testPokemonSpecies) == "Linear Evolution Line"){
+				continue;
+			}
+		}
+		
+		//Get Evo Line type
+		if(!filters.EvoLineType.noEvolution.checked){
+			if(await info.getPokeEvoLineType(testPokemonSpecies) == "No Evolution"){
+				continue;
+			}
+		}
+		
+		if(!filters.EvoLineType.twoStageEvolution.checked){
+			if(await info.getPokeEvoLineType(testPokemonSpecies) == "Two-Stage Evolution"){
+				continue;
+			}
+		}
+
+		if(!filters.EvoLineType.threeStageEvolution.checked){
+			if(await info.getPokeEvoLineType(testPokemonSpecies) == "Three-Stage Evoluiton"){
+				continue;
+			}
+		}
+		
+		//Get Evo Stage
+		
+		if(!filters.EvoStage.basic.checked){
+			if(await info.getPokeEvoStage(testPokemonSpecies) =="Basic"){
+				continue;
+			}
+		}
+		
+		if(!filters.EvoStage.firstStage.checked){
+			if(await info.getPokeEvoStage(testPokemonSpecies) =="Stage 1"){
+				continue;
+			}
+		}
+		
+		if(!filters.EvoStage.secondStage.checked){
+			if(await info.getPokeEvoStage(testPokemonSpecies) =="Stage 2"){
+				continue;
+			}
+		}
+		
+		//Get Pokemon's primaty type
+		
+		testPokemonDefaultForm = await api.fetchDefaultFormData(testPokemonSpecies);
+		
+		if(!filters.PrimaryType.Bug.checked){
+			if(await info.getPokeTypeA(testPokemonDefaultForm) == "bug"){
+				continue;
+			}
+		}
+		
+		if(!filters.PrimaryType.Dark.checked){
+			if(await info.getPokeTypeA(testPokemonDefaultForm) == "dark"){
+				continue;
+			}
+		}
+		
+		if(!filters.PrimaryType.Dragon.checked){
+			if(await info.getPokeTypeA(testPokemonDefaultForm) == "dragon"){
+				continue;
+			}
+		}
+		
+		if(!filters.PrimaryType.Electric.checked){
+			if(await info.getPokeTypeA(testPokemonDefaultForm) == "electric"){
+				continue;
+			}
+		}
+		
+		if(!filters.PrimaryType.Fairy.checked){
+			if(await info.getPokeTypeA(testPokemonDefaultForm) == "fairy"){
+				continue;
+			}
+		}
+		
+		if(!filters.PrimaryType.Fighting.checked){
+			if(await info.getPokeTypeA(testPokemonDefaultForm) == "fighting"){
+				continue;
+			}
+		}
+		
+		if(!filters.PrimaryType.Fire.checked){
+			if(await info.getPokeTypeA(testPokemonDefaultForm) == "fire"){
+				continue;
+			}
+		}
+		
+		if(!filters.PrimaryType.Flying.checked){
+			if(await info.getPokeTypeA(testPokemonDefaultForm) == "flying"){
+				continue;
+			}
+		}
+		
+		if(!filters.PrimaryType.Ghost.checked){
+			if(await info.getPokeTypeA(testPokemonDefaultForm) == "ghost"){
+				continue;
+			}
+		}
+		
+		if(!filters.PrimaryType.Grass.checked){
+			if(await info.getPokeTypeA(testPokemonDefaultForm) == "grass"){
+				continue;
+			}
+		}
+		
+		if(!filters.PrimaryType.Ground.checked){
+			if(await info.getPokeTypeA(testPokemonDefaultForm) == "ground"){
+				continue;
+			}
+		}
+		
+		if(!filters.PrimaryType.Ice.checked){
+			if(await info.getPokeTypeA(testPokemonDefaultForm) == "ice"){
+				continue;
+			}
+		}
+		
+		if(!filters.PrimaryType.Normal.checked){
+			if(await info.getPokeTypeA(testPokemonDefaultForm) == "normal"){
+				continue;
+			}
+		}
+		
+		if(!filters.PrimaryType.Poison.checked){
+			if(await info.getPokeTypeA(testPokemonDefaultForm) == "poison"){
+				continue;
+			}
+		}
+		
+		if(!filters.PrimaryType.Psychic.checked){
+			if(await info.getPokeTypeA(testPokemonDefaultForm) == "psychic"){
+				continue;
+			}
+		}
+		
+		if(!filters.PrimaryType.Rock.checked){
+			if(await info.getPokeTypeA(testPokemonDefaultForm) == "rock"){
+				continue;
+			}
+		}
+		
+		if(!filters.PrimaryType.Steel.checked){
+			if(await info.getPokeTypeA(testPokemonDefaultForm) == "steel"){
+				continue;
+			}
+		}
+		
+		if(!filters.PrimaryType.Water.checked){
+			if(await info.getPokeTypeA(testPokemonDefaultForm) == "water"){
+				continue;
+			}
+		}
+		
+		
+		//Get Pokemon's secondary type
+		if(!filters.SecondaryType.Bug.checked){
+			if(await info.getPokeTypeB(testPokemonDefaultForm) == "bug"){
+				continue;
+			}
+		}
+
+		if(!filters.SecondaryType.Dark.checked){
+			if(await info.getPokeTypeB(testPokemonDefaultForm) == "dark"){
+				continue;
+			}
+		}
+
+		if(!filters.SecondaryType.Dragon.checked){
+			if(await info.getPokeTypeB(testPokemonDefaultForm) == "dragon"){
+				continue;
+			}
+		}
+
+		if(!filters.SecondaryType.Electric.checked){
+			if(await info.getPokeTypeB(testPokemonDefaultForm) == "electric"){
+				continue;
+			}
+		}
+
+		if(!filters.SecondaryType.Fairy.checked){
+			if(await info.getPokeTypeB(testPokemonDefaultForm) == "fairy"){
+				continue;
+			}
+		}
+
+		if(!filters.SecondaryType.Fighting.checked){
+			if(await info.getPokeTypeB(testPokemonDefaultForm) == "fighting"){
+				continue;
+			}
+		}
+
+		if(!filters.SecondaryType.Fire.checked){
+			if(await info.getPokeTypeB(testPokemonDefaultForm) == "fire"){
+				continue;
+			}
+		}
+
+		if(!filters.SecondaryType.Flying.checked){
+			if(await info.getPokeTypeB(testPokemonDefaultForm) == "flying"){
+				continue;
+			}
+		}
+
+		if(!filters.SecondaryType.Ghost.checked){
+			if(await info.getPokeTypeB(testPokemonDefaultForm) == "ghost"){
+				continue;
+			}
+		}
+
+		if(!filters.SecondaryType.Grass.checked){
+			if(await info.getPokeTypeB(testPokemonDefaultForm) == "grass"){
+				continue;
+			}
+		}
+
+		if(!filters.SecondaryType.Ground.checked){
+			if(await info.getPokeTypeB(testPokemonDefaultForm) == "ground"){
+				continue;
+			}
+		}
+
+		if(!filters.SecondaryType.Ice.checked){
+			if(await info.getPokeTypeB(testPokemonDefaultForm) == "ice"){
+				continue;
+			}
+		}
+
+		if(!filters.SecondaryType.Normal.checked){
+			if(await info.getPokeTypeB(testPokemonDefaultForm) == "normal"){
+				continue;
+			}
+		}
+
+		if(!filters.SecondaryType.Poison.checked){
+			if(await info.getPokeTypeB(testPokemonDefaultForm) == "poison"){
+				continue;
+			}
+		}
+
+		if(!filters.SecondaryType.Psychic.checked){
+			if(await info.getPokeTypeB(testPokemonDefaultForm) == "psychic"){
+				continue;
+			}
+		}
+
+		if(!filters.SecondaryType.Rock.checked){
+			if(await info.getPokeTypeB(testPokemonDefaultForm) == "rock"){
+				continue;
+			}
+		}
+		
+		if(!filters.SecondaryType.None.checked){
+			if(await info.getPokeTypeB(testPokemonDefaultForm) == ""){
+				continue;
+			}
+		}
+
+		
+				
+		
+		
+		//With all the filters done, add to the pokepool
+		newPokepool.push(i);
+	}
+		
+		
+	console.log(newPokepool);
+	//console.log(count + " Pokemon are not regular!");
+	return newPokepool
 	
 }
 

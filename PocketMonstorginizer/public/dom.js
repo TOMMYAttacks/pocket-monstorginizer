@@ -244,6 +244,7 @@ export function initializeSearchEvents(handleSearch, randomIDFunc) {
       if (randomId) {
         handleSearch(randomId.toString());
       } else {
+		alert("The current filters do not apply to any Pokémon!");
         console.error("Random ID function returned an invalid value");
       }
     } catch (error) {

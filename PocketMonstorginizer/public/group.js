@@ -267,6 +267,7 @@ export async function isRegular(pokemonSpecies){
 		await isParadox(pokemonSpecies) ||
 		await isPseudoLegend(pokemonSpecies) ||
 		await isStarter(pokemonSpecies) ||
+		await isFossil(pokemonSpecies) ||
 		await isUltraBeast(pokemonSpecies) 
  )
 }

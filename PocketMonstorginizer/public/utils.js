@@ -28,7 +28,7 @@ export function validatePokeName(target) {
     }
   }
 
-  console.log(target);
+  //console.log(target);
   
   if (target.includes(" ")) {
     target = target.replace(" ", "-");

@@ -20,7 +20,7 @@ import * as ftrs from "./filter.js";
  * The default filter code for when there is no Pokemon filtered out
  */
 //const DEFAULT_FILTER_CODE = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
-export const DEFAULT_FILTER_CODE = "ffffff ffffff ffffff ffffff ffffff f80000"
+export const DEFAULT_FILTER_CODE = "ffffff ffffff ffffff ffffff ffffff fc0000"
 
 /**A code represnting what filters are active */
 let filterCode = "";
@@ -32,7 +32,7 @@ let filterCodeUnchanged = false;
 let pokePool = [];
 
 /**Test FilterCode */
-let testFtrCode = "ffffff ffffff ff003f ffffff ffffff f80000"
+//let testFtrCode = "ffffff ffffff ff003f ffffff ffffff f80000"
 
 /**Returns a random ID for a Pokémon without any filtering*/
 export async function randomID() {
@@ -85,9 +85,9 @@ export async function filterdRandom(){
 		//	pokePool = [4,5,6];
 		//}
 		if(!filterCodeUnchanged){
-			pokePool = await ftrs.generateNewPokePool();			
+			pokePool = await ftrs.generateNewPokePool();				
 		}
-
+		
 	}
 	//console.log("Applyed Filter code: " + filterCode);
 	
