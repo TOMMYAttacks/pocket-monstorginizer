@@ -28,6 +28,8 @@ export function validatePokeName(target) {
     }
   }
 
+  console.log(target);
+  
   if (target.includes(" ")) {
     target = target.replace(" ", "-");
   }
@@ -57,9 +59,12 @@ export function capitalize(inputString) {
  * @return string   the hyphenated Pokémon name.
  */
 export function specialPokeName(target) {
-  let updatedName = target.split("-").join(" ");
+	
+	if ((target + "").includes("-")) {
+	  target = target.replace("-", " ");
+	}
 
-  return updatedName.toLowerCase();
+  return (target + "").toLowerCase();
 }
 
 

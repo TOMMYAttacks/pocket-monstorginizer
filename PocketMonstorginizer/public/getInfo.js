@@ -32,7 +32,7 @@ export function getPokeTypeB(pokemon) {
 /**Returns the first listed egg group of the Pokemon
 */
 export function getPokeEggGroup1(pokemonSpecies) {
-  return updateEggGroupName(pokemonSpecies.egg_groups[0].name);
+  return updateEggGroupName(pokemonSpecies.egg_groups.length != 0 ? pokemonSpecies.egg_groups[0].name : "no-eggs");
 }
 
 
@@ -42,7 +42,7 @@ export function getPokeEggGroup1(pokemonSpecies) {
 */
 export function getPokeEggGroup2(pokemonSpecies) {
   return pokemonSpecies.egg_groups.length == 2
-    ? updateEggGroupName(pokemonSpecies.egg_groups[1].name)
+    ? pokemonSpecies.egg_groups.length != 0 && updateEggGroupName(pokemonSpecies.egg_groups[1].name)
     : "";
 }
 

@@ -256,3 +256,17 @@ export async function isElectricRodent(pokemonSpecies) {
 
   return electricRodentList.includes(utils.capitalize(pokemonSpecies.name));
 }
+
+export async function isRegular(pokemonSpecies){
+	return !(
+		await isBaby(pokemonSpecies) ||
+	 	await isEeveelution(pokemonSpecies) || 
+		await isElectricRodent(pokemonSpecies) ||
+		await isLegend(pokemonSpecies) ||
+		await isMythic(pokemonSpecies) ||
+		await isParadox(pokemonSpecies) ||
+		await isPseudoLegend(pokemonSpecies) ||
+		await isStarter(pokemonSpecies) ||
+		await isUltraBeast(pokemonSpecies) 
+ )
+}

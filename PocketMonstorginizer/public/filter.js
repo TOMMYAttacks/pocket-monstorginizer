@@ -4,6 +4,16 @@
  * This script contains the code for filtering Pokémon into a pool to randomize
  */
 
+import * as api from "./api.js";
+import * as info from "./getInfo.js";
+import * as group from "./group.js";
+
+/**
+ * Represents how many Pokémon Species there are. Each one has its own ID PokéAPI corisponding to its order in the National PokéDex
+ */
+export const NUMBER_OF_POKEMON = 1025;
+
+
 /**An object with all the filters and their corisonding checkboxes */
 export const filters = {
 	Grouping : {
@@ -331,6 +341,54 @@ function hexStringToBinary(hexString){
 	return binaryString.trim();
 	
 }
+
+
+//--------------------------------------------------------------------
+
+/**
+ * Generates a new pool of pokemon to draw from based on the currently applyed filters
+ */
+export async function generateNewPokePool(){
+	let newPokepool = [];
+	
+	let testPokemonSpecies;
+	let testPokemonDefaultForm;
+	
+	let count = 0;
+	for(let i = 1; i <= NUMBER_OF_POKEMON; i++){
+		
+		testPokemonSpecies = await api.fetchPokemonData(i);
+		
+		console.log(testPokemonSpecies);
+		//Check pokemon's grouping
+		if(!filters.Grouping.regular.checked){
+			if(await group.isRegular(testPokemonSpecies)){
+				console.log("is this pokemon normal?" + await group.isRegular(testPokemonSpecies))
+				count++;
+				continue;
+			}
+		}
+		
+		
+		
+		//With all the filters done, add to the pokepool
+		newPokepool.push(i);
+		
+		}
+		
+		
+		console.log(newPokepool);
+		console.log(count + " Pokemon are not regular!");
+		return newPokepool
+	
+}
+
+
+
+
+
+
+
 
 
 

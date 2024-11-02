@@ -132,7 +132,7 @@ export async function findPokeGrouping(pokemonSpecies) {
   if (await group.isElectricRodent(pokemonSpecies)) {
     grouping = addSlashIfNeeded(grouping) + "Electric Rodent";
   }
-  if (grouping == "") {
+  if (await group.isRegular(pokemonSpecies)) {
     grouping += "Regular";
   }
 
