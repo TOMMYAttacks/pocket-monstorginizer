@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <aside class="pokemon-list-section">
+      <h2>My Pokémon List</h2>
+      <ul id="pokeList"></ul>
+      <button id="clearList">Clear List</button>
+    </aside>
     <div class="Main">
       <h1 id="PokeName">Pocket Monstorginizer</h1>
       <img
@@ -53,6 +58,14 @@
         <button id="enter" style="width: 103px; height: 26px">Search</button>
       </p>
       <p>
+        <button
+          id="addToList"
+          style="width: 150px; height: 26px; margin-top: 10px"
+        >
+          Add to Pokémon List
+        </button>
+      </p>
+      <p>
         Bulbapedia Page:
         <a id="BulbaLink" href=""></a>
       </p>
@@ -61,10 +74,17 @@
         <a id="SmogLink" href=""></a>
       </p>
     </div>
-    <div class= "filterInfo">
-    	<h2 style = "margin-bottom: 0">Filters</h2>
-    	<h4 style = "margin-bottom: 0;margin: 0; padding-top: 0">Filter Code</h4>
-    	<p style = "margin: 0; padding-top: 0;"><input type="text" id="FilterCodeBox" placeholder="Enter Filter Code" style="height: 19px; width: 369px"/></p>
+    <div class="filterInfo">
+      <h2 style="margin-bottom: 0">Filters</h2>
+      <h4 style="margin-bottom: 0; margin: 0; padding-top: 0">Filter Code</h4>
+      <p style="margin: 0; padding-top: 0">
+        <input
+          type="text"
+          id="FilterCodeBox"
+          placeholder="Enter Filter Code"
+          style="height: 19px; width: 369px"
+        />
+      </p>
     </div>
 
     <div class="tab-bar">
@@ -92,53 +112,92 @@
 
     <div id="Grouping-Tab" class="tabcontent">
       <h3>Grouping</h3>
-      <label><input type="checkbox" id="groupingSelectAll" checked /> Select All</label>
+      <label
+        ><input type="checkbox" id="groupingSelectAll" checked /> Select
+        All</label
+      >
       <label
         ><input type="checkbox" id="groupingSelectNone" /> Select None</label
       >
       <br />
       <label><input type="checkbox" id="regular" checked /> Regular</label>
-      <label><input type="checkbox" id="firstPartner" checked /> First-Partner</label>
-      <label><input type="checkbox" id="baby" checked /> Baby</label>
-      <label><input type="checkbox" id="eeveelution" checked /> Eeveelution</label>
       <label
-        ><input type="checkbox" id="electricRodent" checked /> Electric Rodent</label
+        ><input type="checkbox" id="firstPartner" checked />
+        First-Partner</label
+      >
+      <label><input type="checkbox" id="baby" checked /> Baby</label>
+      <label
+        ><input type="checkbox" id="eeveelution" checked /> Eeveelution</label
+      >
+      <label
+        ><input type="checkbox" id="electricRodent" checked /> Electric
+        Rodent</label
       >
       <label><input type="checkbox" id="fossil" checked /> Fossil</label>
       <label
-        ><input type="checkbox" id="pseudoLegendary" checked /> Pseudo-Legendary</label
+        ><input type="checkbox" id="pseudoLegendary" checked />
+        Pseudo-Legendary</label
       >
       <label><input type="checkbox" id="legendary" checked /> Legendary</label>
       <label><input type="checkbox" id="mythical" checked /> Mythical</label>
-      <label><input type="checkbox" id="ultraBeast" checked /> Ultra Beast</label>
+      <label
+        ><input type="checkbox" id="ultraBeast" checked /> Ultra Beast</label
+      >
       <label><input type="checkbox" id="paradox" checked /> Paradox</label>
     </div>
 
     <div id="Generation-Tab" class="tabcontent">
       <h3>Generation</h3>
       <label
-        ><input type="checkbox" id="generationSelectAll" checked /> Select All</label
+        ><input type="checkbox" id="generationSelectAll" checked /> Select
+        All</label
       >
       <label
         ><input type="checkbox" id="generationSelectNone" /> Select None</label
       >
       <br />
-      <label><input type="checkbox" id="generationI" checked /> Generation I</label>
-      <label><input type="checkbox" id="generationII" checked /> Generation II</label>
-      <label><input type="checkbox" id="generationIII" checked /> Generation III</label>
-      <label><input type="checkbox" id="generationIV" checked /> Generation IV</label>
-      <label><input type="checkbox" id="generationV" checked /> Generation V</label>
-      <label><input type="checkbox" id="generationVI" checked /> Generation VI</label>
-      <label><input type="checkbox" id="generationVII" checked /> Generation VII</label>
       <label
-        ><input type="checkbox" id="generationVIII" checked /> Generation VIII</label
+        ><input type="checkbox" id="generationI" checked /> Generation I</label
       >
-      <label><input type="checkbox" id="generationIX" checked /> Generation IX</label>
+      <label
+        ><input type="checkbox" id="generationII" checked /> Generation
+        II</label
+      >
+      <label
+        ><input type="checkbox" id="generationIII" checked /> Generation
+        III</label
+      >
+      <label
+        ><input type="checkbox" id="generationIV" checked /> Generation
+        IV</label
+      >
+      <label
+        ><input type="checkbox" id="generationV" checked /> Generation V</label
+      >
+      <label
+        ><input type="checkbox" id="generationVI" checked /> Generation
+        VI</label
+      >
+      <label
+        ><input type="checkbox" id="generationVII" checked /> Generation
+        VII</label
+      >
+      <label
+        ><input type="checkbox" id="generationVIII" checked /> Generation
+        VIII</label
+      >
+      <label
+        ><input type="checkbox" id="generationIX" checked /> Generation
+        IX</label
+      >
     </div>
     <div id="PrimaryType-Tab" class="tabcontent">
       <h3>Primary Type</h3>
 
-      <label><input type="checkbox" id="primarySelectAll" checked /> Select All</label>
+      <label
+        ><input type="checkbox" id="primarySelectAll" checked /> Select
+        All</label
+      >
       <label
         ><input type="checkbox" id="primarySelectNone" /> Select None</label
       >
@@ -147,14 +206,20 @@
       <label><input type="checkbox" id="primaryFire" checked /> Fire</label>
       <label><input type="checkbox" id="primaryWater" checked /> Water</label>
       <label><input type="checkbox" id="primaryGrass" checked /> Grass</label>
-      <label><input type="checkbox" id="primaryElectric" checked /> Electric</label>
+      <label
+        ><input type="checkbox" id="primaryElectric" checked /> Electric</label
+      >
       <label><input type="checkbox" id="primaryBug" checked /> Bug</label>
       <label><input type="checkbox" id="primaryPoison" checked /> Poison</label>
       <label><input type="checkbox" id="primaryFlying" checked /> Flying</label>
       <label><input type="checkbox" id="primaryRock" checked /> Rock</label>
       <label><input type="checkbox" id="primaryGround" checked /> Ground</label>
-      <label><input type="checkbox" id="primaryFighting" checked /> Fighting</label>
-      <label><input type="checkbox" id="primaryPsychic" checked /> Psychic</label>
+      <label
+        ><input type="checkbox" id="primaryFighting" checked /> Fighting</label
+      >
+      <label
+        ><input type="checkbox" id="primaryPsychic" checked /> Psychic</label
+      >
       <label><input type="checkbox" id="primaryGhost" checked /> Ghost</label>
       <label><input type="checkbox" id="primaryIce" checked /> Ice</label>
       <label><input type="checkbox" id="primaryDragon" checked /> Dragon</label>
@@ -167,27 +232,46 @@
       <h3>Secondary Type</h3>
 
       <label
-        ><input type="checkbox" id="secondarySelectAll" checked /> Select All</label
+        ><input type="checkbox" id="secondarySelectAll" checked /> Select
+        All</label
       >
       <label
         ><input type="checkbox" id="secondarySelectNone" /> Select None</label
       >
       <br />
-      <label><input type="checkbox" id="secondaryNormal" checked /> Normal</label>
+      <label
+        ><input type="checkbox" id="secondaryNormal" checked /> Normal</label
+      >
       <label><input type="checkbox" id="secondaryFire" checked /> Fire</label>
       <label><input type="checkbox" id="secondaryWater" checked /> Water</label>
       <label><input type="checkbox" id="secondaryGrass" checked /> Grass</label>
-      <label><input type="checkbox" id="secondaryElectric" checked /> Electric</label>
+      <label
+        ><input type="checkbox" id="secondaryElectric" checked />
+        Electric</label
+      >
       <label><input type="checkbox" id="secondaryBug" checked /> Bug</label>
-      <label><input type="checkbox" id="secondaryPoison" checked /> Poison</label>
-      <label><input type="checkbox" id="secondaryFlying" checked /> Flying</label>
+      <label
+        ><input type="checkbox" id="secondaryPoison" checked /> Poison</label
+      >
+      <label
+        ><input type="checkbox" id="secondaryFlying" checked /> Flying</label
+      >
       <label><input type="checkbox" id="secondaryRock" checked /> Rock</label>
-      <label><input type="checkbox" id="secondaryGround" checked /> Ground</label>
-      <label><input type="checkbox" id="secondaryFighting" checked /> Fighting</label>
-      <label><input type="checkbox" id="secondaryPsychic" checked /> Psychic</label>
+      <label
+        ><input type="checkbox" id="secondaryGround" checked /> Ground</label
+      >
+      <label
+        ><input type="checkbox" id="secondaryFighting" checked />
+        Fighting</label
+      >
+      <label
+        ><input type="checkbox" id="secondaryPsychic" checked /> Psychic</label
+      >
       <label><input type="checkbox" id="secondaryGhost" checked /> Ghost</label>
       <label><input type="checkbox" id="secondaryIce" checked /> Ice</label>
-      <label><input type="checkbox" id="secondaryDragon" checked /> Dragon</label>
+      <label
+        ><input type="checkbox" id="secondaryDragon" checked /> Dragon</label
+      >
       <label><input type="checkbox" id="secondaryDark" checked /> Dark</label>
       <label><input type="checkbox" id="secondarySteel" checked /> Steel</label>
       <label><input type="checkbox" id="secondaryFairy" checked /> Fairy</label>
@@ -197,7 +281,9 @@
     <div id="Color-Tab" class="tabcontent">
       <h3>Color</h3>
 
-      <label><input type="checkbox" id="colorSelectAll" checked /> Select All</label>
+      <label
+        ><input type="checkbox" id="colorSelectAll" checked /> Select All</label
+      >
       <label><input type="checkbox" id="colorSelectNone" /> Select None</label>
       <br />
       <label><input type="checkbox" id="colorBlack" checked /> Black</label>
@@ -215,22 +301,34 @@
     <div id="Shape-Tab" class="tabcontent">
       <h3>Shape</h3>
 
-      <label><input type="checkbox" id="shapeSelectAll" checked /> Select All</label>
+      <label
+        ><input type="checkbox" id="shapeSelectAll" checked /> Select All</label
+      >
       <label><input type="checkbox" id="shapeSelectNone" /> Select None</label>
       <br />
       <label><input type="checkbox" id="shapeBall" checked /> Ball</label>
-      <label><input type="checkbox" id="shapeSquiggle" checked /> Squiggle</label>
+      <label
+        ><input type="checkbox" id="shapeSquiggle" checked /> Squiggle</label
+      >
       <label><input type="checkbox" id="shapeFish" checked /> Fish</label>
       <label><input type="checkbox" id="shapeArms" checked /> Arms</label>
       <label><input type="checkbox" id="shapeBlob" checked /> Blob</label>
       <label><input type="checkbox" id="shapeUpright" checked /> Upright</label>
       <label><input type="checkbox" id="shapeLegs" checked /> Legs</label>
-      <label><input type="checkbox" id="shapeQuadruped" checked /> Quadruped</label>
+      <label
+        ><input type="checkbox" id="shapeQuadruped" checked /> Quadruped</label
+      >
       <label><input type="checkbox" id="shapeWings" checked /> Wings</label>
-      <label><input type="checkbox" id="shapeTentacles" checked /> Tentacles</label>
+      <label
+        ><input type="checkbox" id="shapeTentacles" checked /> Tentacles</label
+      >
       <label><input type="checkbox" id="shapeHeads" checked /> Heads</label>
-      <label><input type="checkbox" id="shapeHumanoid" checked /> Humanoid</label>
-      <label><input type="checkbox" id="shapeBugWings" checked /> Bug-wings</label>
+      <label
+        ><input type="checkbox" id="shapeHumanoid" checked /> Humanoid</label
+      >
+      <label
+        ><input type="checkbox" id="shapeBugWings" checked /> Bug-wings</label
+      >
       <label><input type="checkbox" id="shapeArmor" checked /> Armor</label>
     </div>
 
@@ -238,50 +336,75 @@
       <h3>Gender Rate</h3>
 
       <label
-        ><input type="checkbox" id="genderRateSelectAll" checked /> Select All</label
+        ><input type="checkbox" id="genderRateSelectAll" checked /> Select
+        All</label
       >
       <label
         ><input type="checkbox" id="genderRateSelectNone" /> Select None</label
       >
       <br />
       <label><input type="checkbox" id="maleOnly" checked /> Male Only</label>
-      <label><input type="checkbox" id="normallyMale" checked /> Normally Male</label>
-      <label><input type="checkbox" id="usuallyMale" checked /> Usually Male</label>
+      <label
+        ><input type="checkbox" id="normallyMale" checked /> Normally
+        Male</label
+      >
+      <label
+        ><input type="checkbox" id="usuallyMale" checked /> Usually Male</label
+      >
       <label
         ><input type="checkbox" id="evenMaleFemale" checked /> Even Male or
         Female</label
       >
-      <label><input type="checkbox" id="usuallyFemale" checked /> Usually Female</label>
       <label
-        ><input type="checkbox" id="normallyFemale" checked /> Normally Female</label
+        ><input type="checkbox" id="usuallyFemale" checked /> Usually
+        Female</label
       >
-      <label><input type="checkbox" id="femaleOnly" checked /> Female Only</label>
-      <label><input type="checkbox" id="genderUnknown" checked /> Gender Unknown</label>
+      <label
+        ><input type="checkbox" id="normallyFemale" checked /> Normally
+        Female</label
+      >
+      <label
+        ><input type="checkbox" id="femaleOnly" checked /> Female Only</label
+      >
+      <label
+        ><input type="checkbox" id="genderUnknown" checked /> Gender
+        Unknown</label
+      >
     </div>
     <div id="EvoStag-Tab" class="tabcontent">
       <h3>Evolution Stage</h3>
 
-      <label><input type="checkbox" id="evoStagSelectAll" checked /> Select All</label>
+      <label
+        ><input type="checkbox" id="evoStagSelectAll" checked /> Select
+        All</label
+      >
       <label
         ><input type="checkbox" id="evoStagSelectNone" /> Select None</label
       >
       <br />
       <label><input type="checkbox" id="basic" checked /> Basic</label>
-      <label><input type="checkbox" id="firstStage" checked /> First Stage</label>
-      <label><input type="checkbox" id="secondStage" checked /> Second Stage</label>
+      <label
+        ><input type="checkbox" id="firstStage" checked /> First Stage</label
+      >
+      <label
+        ><input type="checkbox" id="secondStage" checked /> Second Stage</label
+      >
     </div>
 
     <div id="EvoLineType-Tab" class="tabcontent">
       <h3>Evolution Line Type</h3>
 
       <label
-        ><input type="checkbox" id="evoLineTypeSelectAll" checked /> Select All</label
+        ><input type="checkbox" id="evoLineTypeSelectAll" checked /> Select
+        All</label
       >
       <label
         ><input type="checkbox" id="evoLineTypeSelectNone" /> Select None</label
       >
       <br />
-      <label><input type="checkbox" id="noEvolution" checked /> No Evolution</label>
+      <label
+        ><input type="checkbox" id="noEvolution" checked /> No Evolution</label
+      >
       <label
         ><input type="checkbox" id="twoStageEvolution" checked /> Two-Stage
         Evolution</label
@@ -296,7 +419,8 @@
       <h3>Branching Evolution Line</h3>
 
       <label
-        ><input type="checkbox" id="branchingEvoSelectAll" checked /> Select All</label
+        ><input type="checkbox" id="branchingEvoSelectAll" checked /> Select
+        All</label
       >
       <label
         ><input type="checkbox" id="branchingEvoSelectNone" /> Select
@@ -310,20 +434,27 @@
     <div id="EggGroup-Tab" class="tabcontent">
       <h3>Egg Group</h3>
 
-      <label><input type="checkbox" id="eggGroupSelectAll" checked /> Select All</label>
+      <label
+        ><input type="checkbox" id="eggGroupSelectAll" checked /> Select
+        All</label
+      >
       <label
         ><input type="checkbox" id="eggGroupSelectNone" /> Select None</label
       >
       <br />
       <label><input type="checkbox" id="eggMonster" checked /> Monster</label>
-      <label><input type="checkbox" id="eggHumanLike" checked /> Human-Like</label>
+      <label
+        ><input type="checkbox" id="eggHumanLike" checked /> Human-Like</label
+      >
       <label><input type="checkbox" id="eggWater1" checked /> Water 1</label>
       <label><input type="checkbox" id="eggWater2" checked /> Water 2</label>
       <label><input type="checkbox" id="eggWater3" checked /> Water 3</label>
       <label><input type="checkbox" id="eggBug" checked /> Bug</label>
       <label><input type="checkbox" id="eggMineral" checked /> Mineral</label>
       <label><input type="checkbox" id="eggFlying" checked /> Flying</label>
-      <label><input type="checkbox" id="eggAmorphous" checked /> Amorphous</label>
+      <label
+        ><input type="checkbox" id="eggAmorphous" checked /> Amorphous</label
+      >
       <label><input type="checkbox" id="eggField" checked /> Field</label>
       <label><input type="checkbox" id="eggFairy" checked /> Fairy</label>
       <label><input type="checkbox" id="eggGrass" checked /> Grass</label>
@@ -336,34 +467,115 @@
       <h3>Other Egg Group</h3>
 
       <label
-        ><input type="checkbox" id="otherEggGroupSelectAll" checked /> Select All</label
+        ><input type="checkbox" id="otherEggGroupSelectAll" checked /> Select
+        All</label
       >
       <label
         ><input type="checkbox" id="otherEggGroupSelectNone" /> Select
         None</label
       >
       <br />
-      <label><input type="checkbox" id="eggOtherMonster" checked /> Monster</label>
-      <label><input type="checkbox" id="eggOtherHumanLike" checked /> Human-Like</label>
-      <label><input type="checkbox" id="eggOtherWater1" checked /> Water 1</label>
-      <label><input type="checkbox" id="eggOtherWater2" checked /> Water 2</label>
-      <label><input type="checkbox" id="eggOtherWater3" checked /> Water 3</label>
+      <label
+        ><input type="checkbox" id="eggOtherMonster" checked /> Monster</label
+      >
+      <label
+        ><input type="checkbox" id="eggOtherHumanLike" checked />
+        Human-Like</label
+      >
+      <label
+        ><input type="checkbox" id="eggOtherWater1" checked /> Water 1</label
+      >
+      <label
+        ><input type="checkbox" id="eggOtherWater2" checked /> Water 2</label
+      >
+      <label
+        ><input type="checkbox" id="eggOtherWater3" checked /> Water 3</label
+      >
       <label><input type="checkbox" id="eggOtherBug" checked /> Bug</label>
-      <label><input type="checkbox" id="eggOtherMineral" checked /> Mineral</label>
-      <label><input type="checkbox" id="eggOtherFlying" checked /> Flying</label>
-      <label><input type="checkbox" id="eggOtherAmorphous" checked /> Amorphous</label>
+      <label
+        ><input type="checkbox" id="eggOtherMineral" checked /> Mineral</label
+      >
+      <label
+        ><input type="checkbox" id="eggOtherFlying" checked /> Flying</label
+      >
+      <label
+        ><input type="checkbox" id="eggOtherAmorphous" checked />
+        Amorphous</label
+      >
       <label><input type="checkbox" id="eggOtherField" checked /> Field</label>
       <label><input type="checkbox" id="eggOtherFairy" checked /> Fairy</label>
       <label><input type="checkbox" id="eggOtherGrass" checked /> Grass</label>
-      <label><input type="checkbox" id="eggOtherDragon" checked /> Dragon</label>
-<!--  <label><input type="checkbox" id="ditto" /> Ditto</label>
+      <label
+        ><input type="checkbox" id="eggOtherDragon" checked /> Dragon</label
+      >
+      <!--  <label><input type="checkbox" id="ditto" /> Ditto</label>
       <label><input type="checkbox" id="noEggs" /> No Eggs</label>
       If a pokemon is in the Ditto or NoEggs egg group, they will not be in another one.
       as such, having them avaiable as a secondary egg group is redundent.
-      -->   
+      -->
       <label><input type="checkbox" id="eggOtherNone" checked /> None</label>
     </div>
 
     <script type="module" src="index.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const addToListButton = document.getElementById("addToList");
+        const clearListButton = document.getElementById("clearList");
+        const pokeList = document.getElementById("pokeList");
+
+        // Function to add the current Pokémon to the list
+        function addCurrentPokemonToList() {
+          const pokemonName = document
+            .getElementById("PokeName")
+            ?.textContent.trim();
+          const pokemonID = document
+            .getElementById("IDNum")
+            ?.textContent.trim();
+
+          // console.log("Adding to list:", pokemonName, pokemonID);
+
+          if (pokemonName && pokemonID && pokemonID !== "#0000") {
+            const listItem = document.createElement("li");
+            listItem.textContent = `${pokemonName} (${pokemonID})`;
+
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "Remove";
+            deleteButton.onclick = () => {
+              listItem.remove();
+              console.log(`Removed ${pokemonName} from list`);
+            };
+
+            listItem.appendChild(deleteButton);
+            pokeList.appendChild(listItem);
+            console.log("Pokémon added to list:", listItem.textContent);
+          } else {
+            console.warn("No valid data to add to list.");
+            alert("Please search for a Pokémon before adding it to the list.");
+          }
+        }
+        function clearPokemonList() {
+          if (pokeList) {
+            pokeList.innerHTML = "";
+            console.log("Pokémon list cleared.");
+          } else {
+            console.error("No Pokémon list found to clear.");
+          }
+        }
+
+        if (addToListButton) {
+          addToListButton.addEventListener("click", addCurrentPokemonToList);
+          console.log("Add to List button listener attached.");
+        } else {
+          console.error("Add to List button not found.");
+        }
+
+        if (clearListButton) {
+          clearListButton.addEventListener("click", clearPokemonList);
+          console.log("Clear List button listener attached.");
+        } else {
+          console.error("Clear List button not found.");
+        }
+      });
+    </script>
   </body>
 </html>
