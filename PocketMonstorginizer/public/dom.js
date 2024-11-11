@@ -296,6 +296,36 @@ function applyFilterCode(filterCodeValue){
 		}
 }
 
+
+
+export function showFilteringProgress(isShowing){
+	const randomPoolProgressGroup = document.getElementById("randomPoolProgressGroup");
+
+	randomPoolProgressGroup.hidden = !isShowing;
+}
+
+export function setFilteringProgressLabel(message, showBar = false){
+	const randomPoolProgressLabel = document.getElementById("randomPoolProgressLabel");
+	if(message == ""){
+		randomPoolProgressLabel.hidden = true;
+	}
+	else{
+		randomPoolProgressLabel.hidden = false;
+		randomPoolProgressLabel.innerHTML = message;
+	}
+	
+	const randomPoolProgress = document.getElementById("randomPoolProgress");
+	randomPoolProgress.hidden = !showBar;
+}
+
+
+export function updateFilteringProgress(value){
+	const randomPoolProgress = document.getElementById("randomPoolProgress");
+	
+	randomPoolProgress.value = value;
+}
+
+
 export function openTab(event, tabName) {
   const tabcontent = document.getElementsByClassName("tabcontent");
 

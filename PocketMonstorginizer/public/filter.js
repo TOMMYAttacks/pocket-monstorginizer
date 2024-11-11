@@ -8,6 +8,8 @@ import * as api from "./api.js";
 import * as info from "./getInfo.js";
 import * as group from "./group.js";
 
+import { showFilteringProgress, setFilteringProgressLabel, updateFilteringProgress } from "./dom.js";
+
 /**
  * Represents how many Pokémon Species there are. Each one has its own ID PokéAPI corisponding to its order in the National PokéDex
  */
@@ -356,7 +358,13 @@ export async function generateNewPokePool(){
 	let testPokemonDefaultForm;
 	
 	let count = 0;
+
+	showFilteringProgress(true);
+	setFilteringProgressLabel("Filtering Pokémon...\n", true);
+	
 	for(let i = 1; i <= NUMBER_OF_POKEMON; i++){
+		
+		updateFilteringProgress(i - 1);
 		
 		testPokemonSpecies = await api.fetchPokemonData(i);
 		
@@ -1144,6 +1152,8 @@ export async function generateNewPokePool(){
 		
 		
 	console.log(newPokepool);
+	
+	setFilteringProgressLabel(newPokepool.length + " Pokémon found!\n")
 	//console.log(count + " Pokemon are not regular!");
 	return newPokepool
 	
