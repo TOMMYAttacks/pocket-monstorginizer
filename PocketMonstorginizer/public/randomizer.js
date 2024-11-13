@@ -13,6 +13,7 @@
 
 
 import * as ftrs from "./filter.js";
+import { showFilteringProgress, setFilteringProgressLabel, } from "./dom.js";
 
 
 
@@ -36,6 +37,8 @@ let pokePool = [];
 
 /**Returns a random ID for a Pokémon without any filtering*/
 export async function randomID() {
+	showFilteringProgress(true);
+	setFilteringProgressLabel("Selecting from All Pokémon\n")
 
   return Math.floor(Math.random() * ftrs.NUMBER_OF_POKEMON) + 1;
 }

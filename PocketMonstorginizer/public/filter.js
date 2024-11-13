@@ -1153,7 +1153,7 @@ export async function generateNewPokePool(){
 		
 	console.log(newPokepool);
 	
-	setFilteringProgressLabel(newPokepool.length + " Pokémon found!\n")
+	setFilteringProgressLabel("Selecting from " + newPokepool.length + " Pokémon\n")
 	//console.log(count + " Pokemon are not regular!");
 	return newPokepool
 	
