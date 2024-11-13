@@ -141,11 +141,11 @@ function formatPokeGeneration(genName) {
  * @example  Pichu -> Basic, Pikachu -> stage 1, Raichu -> stage 2
  */
 export async function getPokeEvoStage(pokemonSpecies) {
-  let evoChainMembers = getPokeEvoChainMembers(pokemonSpecies);
+  let evoChainMembers =await getPokeEvoChainMembers(pokemonSpecies);
 
-  let basicMember = (await evoChainMembers).basic;
-  let stage1Members = (await evoChainMembers).stage1;
-  let stage2Members = (await evoChainMembers).stage2;
+  let basicMember = evoChainMembers.basic;
+  let stage1Members = evoChainMembers.stage1;
+  let stage2Members = evoChainMembers.stage2;
 
   if (basicMember.includes(pokemonSpecies.name)) {
     return "Basic";
@@ -185,24 +185,63 @@ export async function getIsBranching(pokemonSpecies) {
 */
 export async function getPokeEvoLineType(pokemonSpecies) {
   let evoChain = await getPokeEvoChain(pokemonSpecies);
-  let evoType = "";
   //console.log(pokemonSpecies.name + "'s Evo Chain");
   //console.log(evoChain);
   //console.log(evoChain.chain);
   //console.log(evoChain.chain.evolves_to);
 
   if (evoChain.chain.evolves_to.length == 0) {
-    evoType = "No Evolution";
+    return "No Evolution";
   } else {
-    if (evoChain.chain.evolves_to[0].evolves_to.length == 0) {
-      evoType = "Two-Stage Evolution";
-    } else {
-      evoType = "Three-Stage Evoluiton";
-    }
+	for(let i = 0; i < evoChain.chain.evolves_to.length; i++){
+		//console.log(evoChain.chain.evolves_to[i])
+		//console.log(evoChain.chain.evolves_to[i].evolves_to.length);
+		if (evoChain.chain.evolves_to[i].evolves_to.length != 0) {
+		  return "Three-Stage Evoluiton";
+		}
+	}
+      return "Two-Stage Evoluiton";
   }
   //console.log(evoType);
-  return evoType;
+  //return evoType;
 }
+
+/**Gets if this Pokemon is cabeable of evolveing 
+ * @description				Can Evolve - The Pokémon is still able to evolve. (e.g Charmander, Pikachu)
+ * 							Fully Evolved - The Pokémon can not evolve further. (e.g Charizard, Steelix, Mewtwo)
+ * 
+*/
+export async function getPokeEvoCapability(pokemonSpecies){
+	//console.log("Calling from PokeEvoCapability");
+	let evoLineType = await getPokeEvoLineType(pokemonSpecies);
+	if(evoLineType == "No Evolution"){
+		return "Fully Evolved";
+	}
+	else{
+		let evoChainMembers = await getPokeEvoChainMembers(pokemonSpecies);
+		//console.log(evoChainMembers);
+		
+		if(evoLineType == "Two-Stage Evoluiton"){
+			if(evoChainMembers.stage1.includes(pokemonSpecies.name)){
+				return "Fully Evolved";
+			}
+			else{
+				return "Can Evolve";
+			}
+		}
+		else if(evoLineType == "Three-Stage Evoluiton"){
+			if(evoChainMembers.stage2.includes(pokemonSpecies.name)){
+				return "Fully Evolved";
+			}
+			else{
+				return "Can Evolve";
+			}			
+		}
+	}
+
+	
+}
+
 
 /**Gets the Pokemon's evolution chain as an object to be used by other functions
  * @return url string		The PokeAPI url to the given Pokémon Species's evolution chain

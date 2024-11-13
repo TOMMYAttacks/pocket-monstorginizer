@@ -79,6 +79,9 @@ export async function updatePokeInfo(pokemonSpecies) {
 
   document.getElementById("PokeEvoLineType").innerHTML =
     await getInfo.getPokeEvoLineType(pokemonSpecies);
+	
+  document.getElementById("PokeEvoCapability").innerHTML = 
+  	await getInfo.getPokeEvoCapability(pokemonSpecies);
 }
 
 /**
@@ -114,13 +117,13 @@ export async function getPokeDexInfo(pokemonSpecies){
 		
 		while (dexCount < 2 && dexEntryCount < dexEntrys){
 			let lang = pokemonSpecies.flavor_text_entries[dexEntryCount].language;
-			console.log(lang);
+			//console.log(lang);
 			let langName = await lang.name;
-			console.log(langName);
+			//console.log(langName);
 			if(langName == "en"){
-				console.log(pokemonSpecies.flavor_text_entries[dexEntryCount].flavor_text)
-				console.log(dexInfo)
-				console.log(dexInfo.trim() == pokemonSpecies.flavor_text_entries[dexEntryCount].flavor_text.trim() + "<br>")
+				//console.log(pokemonSpecies.flavor_text_entries[dexEntryCount].flavor_text)
+				//console.log(dexInfo)
+				//console.log(dexInfo.trim() == pokemonSpecies.flavor_text_entries[dexEntryCount].flavor_text.trim() + "<br>")
 				if(dexInfo.trim() != pokemonSpecies.flavor_text_entries[dexEntryCount].flavor_text.trim() + "<br>"){
 					dexInfo += pokemonSpecies.flavor_text_entries[dexEntryCount].flavor_text;
 					dexInfo += "<br>";
@@ -131,7 +134,7 @@ export async function getPokeDexInfo(pokemonSpecies){
 		}
 	}
 	
-	console.log(dexInfo);
+	//console.log(dexInfo);
 	
 	return dexInfo;
 	  

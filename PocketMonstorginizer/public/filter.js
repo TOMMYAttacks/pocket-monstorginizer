@@ -1154,10 +1154,6 @@ export async function generateNewPokePool(){
 				continue;
 			}
 		}
-
-		
-				
-		
 		
 		//With all the filters done, add to the pokepool
 		newPokepool.push(i);
