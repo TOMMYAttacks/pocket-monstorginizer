@@ -9,6 +9,7 @@ import * as info from "./getInfo.js";
 import * as group from "./group.js";
 
 import { showFilteringProgress, setFilteringProgressLabel, updateFilteringProgress } from "./dom.js";
+import {DEFAULT_FILTER_CODE} from "./randomizer.js";
 
 /**
  * Represents how many Pokémon Species there are. Each one has its own ID PokéAPI corisponding to its order in the National PokéDex
@@ -270,7 +271,7 @@ export async function applyFilterCode(code){
 
 /**If a false bool, apply the default filter code */
 export async function applyDefaultFilterCode(){
-	applyFilterCode("ffffff ffffff ffffff ffffff ffffff f80000");
+	applyFilterCode(DEFAULT_FILTER_CODE);
 }
 
 /**Converts a string of binary chunks to hexadecimal */
@@ -357,7 +358,7 @@ export async function generateNewPokePool(){
 	let testPokemonSpecies;
 	let testPokemonDefaultForm;
 	
-	let count = 0;
+	//let count = 0;
 
 	showFilteringProgress(true);
 	setFilteringProgressLabel("Filtering Pokémon...\n", true);
@@ -366,10 +367,10 @@ export async function generateNewPokePool(){
 		
 		updateFilteringProgress(i - 1);
 		
-		testPokemonSpecies = await api.fetchPokemonData(i);
+		testPokemonSpecies = await api.fetchPokemonData(i.toString());
 		
-		console.log(i + " " + testPokemonSpecies);
-		console.log(testPokemonSpecies);
+		//console.log(i + " " + testPokemonSpecies);
+		//console.log(testPokemonSpecies);
 		
 		//Check pokemon's grouping
 		
@@ -1132,6 +1133,18 @@ export async function generateNewPokePool(){
 
 		if(!filters.SecondaryType.Rock.checked){
 			if(await info.getPokeTypeB(testPokemonDefaultForm) == "rock"){
+				continue;
+			}
+		}
+
+		if(!filters.SecondaryType.Steel.checked){
+			if(await info.getPokeTypeB(testPokemonDefaultForm) == "steel"){
+				continue;
+			}
+		}
+
+		if(!filters.SecondaryType.Water.checked){
+			if(await info.getPokeTypeB(testPokemonDefaultForm) == "water"){
 				continue;
 			}
 		}

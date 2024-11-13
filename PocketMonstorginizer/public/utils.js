@@ -33,6 +33,12 @@ export function validatePokeName(target) {
   if (target.includes(" ")) {
     target = target.replace(" ", "-");
   }
+  
+  //If the target is a number, parce it to a numeric value, then back to a string. This is to ignore any zeros at frount
+  if(!isNaN(target)){
+	target = Math.abs(parseInt(target)).toString();
+  }
+  
   return target;
 }
 
@@ -53,18 +59,24 @@ export function capitalize(inputString) {
 
 
 /**
- * Ensure proper text case and handle special cases for hyphens, e.g. (ho-oh).
+ * Ensure proper text case and handle special cases for hyphens (e.g. ho-oh), or has gender symbols (e.g. Nidoran♂)
  *
  * @param  target   the name of the Pokémon.
  * @return string   the hyphenated Pokémon name.
  */
 export function specialPokeName(target) {
+	if(target.includes("♀")){
+		target = target.replace("♀", " F");
+	}
+	if(target.includes("♂")){
+		target = target.replace("♂", " M");
+	}
 	
-	if ((target + "").includes("-")) {
+	if ((target).includes("-")) {
 	  target = target.replace("-", " ");
 	}
 
-  return (target + "").toLowerCase();
+  return (target).toLowerCase();
 }
 
 

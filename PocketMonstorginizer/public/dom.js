@@ -21,14 +21,15 @@ import * as fltr from "./filter.js";
  * @return none             updates the page with the Pokémon info; no return.
  */
 export async function updatePokeInfo(pokemonSpecies) {
+	console.log(pokemonSpecies);
   document.getElementById("PokeName").innerHTML = utils.normalizePokeName(
     pokemonSpecies.name
   );
 
-  document.getElementById("PokeInfo").innerHTML =
-    pokemonSpecies.flavor_text_entries.length > 1
-      ? pokemonSpecies.flavor_text_entries[1].flavor_text
-      : pokemonSpecies.flavor_text_entries[0].flavor_text;
+  //document.getElementById("PokeInfo").innerHTML = getPokeDexInfo(pokemonSpecies);
+    //pokemonSpecies.flavor_text_entries.length > 1
+    //  ? pokemonSpecies.flavor_text_entries[1].flavor_text
+     // : pokemonSpecies.flavor_text_entries[0].flavor_text;
 
   document.getElementById("Grouping").innerHTML = await findPokeGrouping(
     pokemonSpecies
@@ -92,6 +93,50 @@ export function showPokeImage(imageUrl) {
   pokeImg.src = imageUrl;
 
   pokeImg.style.display = "block";
+}
+
+/**
+ * Returns the first two english PokéDex entrys for the given Pokemon
+ * 
+ * @param  pokemonSpecies	Given Pokémon Species
+ * @return string			The PokéDex entrys
+ */
+export async function getPokeDexInfo(pokemonSpecies){
+	let dexInfo = "";
+	
+	if(pokemonSpecies.flavor_text_entries.length == 1){
+		dexInfo += pokemonSpecies.flavor_text_entries[0].flavor_text;
+	}
+	else{
+		let dexCount = 0;
+		let dexEntrys = pokemonSpecies.flavor_text_entries.length;
+		let dexEntryCount = 0;
+		
+		while (dexCount < 2 && dexEntryCount < dexEntrys){
+			let lang = pokemonSpecies.flavor_text_entries[dexEntryCount].language;
+			console.log(lang);
+			let langName = await lang.name;
+			console.log(langName);
+			if(langName == "en"){
+				console.log(pokemonSpecies.flavor_text_entries[dexEntryCount].flavor_text)
+				console.log(dexInfo)
+				console.log(dexInfo.trim() == pokemonSpecies.flavor_text_entries[dexEntryCount].flavor_text.trim() + "<br>")
+				if(dexInfo.trim() != pokemonSpecies.flavor_text_entries[dexEntryCount].flavor_text.trim() + "<br>"){
+					dexInfo += pokemonSpecies.flavor_text_entries[dexEntryCount].flavor_text;
+					dexInfo += "<br>";
+					dexCount++;					
+				}
+			}
+			dexEntryCount++;
+		}
+	}
+	
+	console.log(dexInfo);
+	
+	return dexInfo;
+	  
+  
+	
 }
 
 /**

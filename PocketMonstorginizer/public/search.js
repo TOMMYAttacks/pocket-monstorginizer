@@ -13,9 +13,7 @@ export async function handleSearch(target) {
     dom.updatePokeInfo(pokemonSpecies);
 
     let rawText =
-      pokemonSpecies.flavor_text_entries.length > 1
-        ? pokemonSpecies.flavor_text_entries[1].flavor_text
-        : pokemonSpecies.flavor_text_entries[0].flavor_text;
+      await dom.getPokeDexInfo(pokemonSpecies);
 
     let sanitizedText = sanitizeText(rawText);
     document.getElementById("PokeInfo").innerHTML = sanitizedText;
