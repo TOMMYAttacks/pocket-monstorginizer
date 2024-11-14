@@ -147,6 +147,11 @@ export const filters = {
 		linear: document.getElementById("linear")
 	},
 	
+	EvoCapability: {
+		canEvolve: document.getElementById("canEvolve"),
+		fullyEvolved: document.getElementById("fullyEvolved")
+	},
+	
 	EggGroup: {
 		Monster: document.getElementById("eggMonster"),
 		HumanLike: document.getElementById("eggHumanLike"),
@@ -884,6 +889,20 @@ export async function generateNewPokePool(){
 		
 		if(!filters.BranchingEvo.linear.checked){
 			if(await info.getIsBranching(testPokemonSpecies) == "Linear Evolution Line"){
+				continue;
+			}
+		}
+		
+		
+		//Get evo capability
+		if(!filters.EvoCapability.canEvolve.checked){
+			if(await info.getPokeEvoCapability(testPokemonSpecies) == "Can Evolve"){
+				continue;
+			}
+		}
+		
+		if(!filters.EvoCapability.fullyEvolved.checked){
+			if(await info.getPokeEvoCapability(testPokemonSpecies) == "Fully Evolved"){
 				continue;
 			}
 		}

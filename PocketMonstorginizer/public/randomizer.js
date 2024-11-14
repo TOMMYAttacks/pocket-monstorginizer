@@ -21,7 +21,7 @@ import { showFilteringProgress, setFilteringProgressLabel, } from "./dom.js";
  * The default filter code for when there is no Pokemon filtered out
  */
 //const DEFAULT_FILTER_CODE = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
-export const DEFAULT_FILTER_CODE = "ffffff ffffff ffffff ffffff ffffff fc0000"
+export const DEFAULT_FILTER_CODE = "ffffff ffffff ffffff ffffff ffffff ff0000"
 
 /**A code represnting what filters are active */
 let filterCode = "";

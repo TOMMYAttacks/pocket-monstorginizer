@@ -21,7 +21,7 @@ import * as fltr from "./filter.js";
  * @return none             updates the page with the Pokémon info; no return.
  */
 export async function updatePokeInfo(pokemonSpecies) {
-	console.log(pokemonSpecies);
+	//console.log(pokemonSpecies);
   document.getElementById("PokeName").innerHTML = utils.normalizePokeName(
     pokemonSpecies.name
   );
@@ -514,6 +514,13 @@ document.addEventListener("DOMContentLoaded", function () {
     "input[type='checkbox']",
     "branchingEvoSelectAll",
     "branchingEvoSelectNone"
+  );
+  
+  manageSelectNoneAndAll(
+    "EvoCapability-Tab",
+    "input[type='checkbox']",
+    "EvoCapabilitySelectAll",
+    "EvoCapabilitySelectNone"
   );
 
   manageSelectNoneAndAll(
