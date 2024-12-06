@@ -9,8 +9,16 @@
   <body>
     <aside class="pokemon-list-section">
       <h2>My Pokémon List</h2>
-      <ul id="pokeList"></ul>
+      <ol id="pokeList"></ol>
       <button id="clearList">Clear List</button>
+      <p></p>
+      <label for="ListCodeBox" id="ListCodeBoxLabel"> List Code</label>
+      <textarea rows="2" cols="31"
+          	   id="ListCodeBox"
+               placeholder="Enter List Code to load in a saved Pokémon list"
+             ></textarea>
+      <button id="ApplyCode">Apply code</button>
+ 
     </aside>
     <div class="Main">
       <h1 id="PokeName">Pocket Monstorginizer</h1>
@@ -542,65 +550,6 @@
     </div>
 
     <script type="module" src="index.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const addToListButton = document.getElementById("addToList");
-        const clearListButton = document.getElementById("clearList");
-        const pokeList = document.getElementById("pokeList");
-
-        // Function to add the current Pokémon to the list
-        function addCurrentPokemonToList() {
-          const pokemonName = document
-            .getElementById("PokeName")
-            ?.textContent.trim();
-          const pokemonID = document
-            .getElementById("IDNum")
-            ?.textContent.trim();
-
-          // console.log("Adding to list:", pokemonName, pokemonID);
-
-          if (pokemonName && pokemonID && pokemonID !== "#0000") {
-            const listItem = document.createElement("li");
-            listItem.textContent = `${pokemonName} (${pokemonID})`;
-
-            const deleteButton = document.createElement("button");
-            deleteButton.textContent = "Remove";
-            deleteButton.onclick = () => {
-              listItem.remove();
-              console.log(`Removed ${pokemonName} from list`);
-            };
-
-            listItem.appendChild(deleteButton);
-            pokeList.appendChild(listItem);
-            console.log("Pokémon added to list:", listItem.textContent);
-          } else {
-            console.warn("No valid data to add to list.");
-            alert("Please search for a Pokémon before adding it to the list.");
-          }
-        }
-        function clearPokemonList() {
-          if (pokeList) {
-            pokeList.innerHTML = "";
-            console.log("Pokémon list cleared.");
-          } else {
-            console.error("No Pokémon list found to clear.");
-          }
-        }
-
-        if (addToListButton) {
-          addToListButton.addEventListener("click", addCurrentPokemonToList);
-          console.log("Add to List button listener attached.");
-        } else {
-          console.error("Add to List button not found.");
-        }
-
-        if (clearListButton) {
-          clearListButton.addEventListener("click", clearPokemonList);
-          console.log("Clear List button listener attached.");
-        } else {
-          console.error("Clear List button not found.");
-        }
-      });
-    </script>
+    <script type="module" src = "list.js"> </script>
   </body>
 </html>
