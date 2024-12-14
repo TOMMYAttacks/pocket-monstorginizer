@@ -254,7 +254,7 @@ async function getPokeEvoChain(pokemonSpecies) {
     //console.log(pokeEvoChain);
     return pokeEvoChain;
   } catch {
-    console.log("Opps! No chain!");
+    //console.log("Opps! No chain!");
   }
 }
 

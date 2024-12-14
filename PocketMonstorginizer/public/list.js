@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .getElementById("IDNum")
             ?.textContent.trim();
 
-          // console.log("Adding to list:", pokemonName, pokemonID);
+          // //console.log("Adding to list:", pokemonName, pokemonID);
 
           if (pokemonName && pokemonID && pokemonID !== "#0000") {
             const listItem = document.createElement("li");
@@ -40,9 +40,9 @@ document.addEventListener("DOMContentLoaded", () => {
             deleteButton.textContent = "Remove";
             deleteButton.onclick = async () => {
 			  pokeListArr.splice(getItemIndexInList(pokeList.children, listItem),1);
-			  console.log(pokeListArr);
+			  //console.log(pokeListArr);
               listItem.remove();
-              console.log(`Removed ${pokemonName} from list`);
+              //console.log(`Removed ${pokemonName} from list`);
 			  pokeListCode = await generateListCode();
 			  pokeListCodeBox.value = pokeListCode;
             };
@@ -53,13 +53,13 @@ document.addEventListener("DOMContentLoaded", () => {
 			pokeListArr.push(pokemonID.substring(1));
 			pokeListCode = await generateListCode();
 			pokeListCodeBox.value = pokeListCode;
-			console.log(pokemonName + " is at index " + getItemIndexInList(pokeList.children, listItem));
-			console.log(pokeListArr);
+			//console.log(pokemonName + " is at index " + getItemIndexInList(pokeList.children, listItem));
+			//console.log(pokeListArr);
 			
             
-			console.log("Pokémon added to list:", listItem.textContent);
+			//console.log("Pokémon added to list:", listItem.textContent);
           } else {
-            console.warn("No valid data to add to list.");
+            //console.warn("No valid data to add to list.");
             alert("Please search for a Pokémon before adding it to the list.");
           }
         }
@@ -71,14 +71,14 @@ document.addEventListener("DOMContentLoaded", () => {
 				pokeList.children[0].remove();				
 			}
 
-            console.log("Pokémon list cleared.");
+            //console.log("Pokémon list cleared.");
 			
 			pokeListArr = [];
 			pokeListCode = await generateListCode();
 			pokeListCodeBox.value = pokeListCode;
 			
           } else {
-            console.error("No Pokémon list found to clear.");
+            //console.error("No Pokémon list found to clear.");
           }
         }
 		
@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
 						throw "Not a number";
 					}
 				}
-				console.log(pokeListArr);
+				//console.log(pokeListArr);
 				
 				pokeListArr.forEach(async (id) =>{
 					let pokemonSpecies = await api.fetchPokemonData(id);
@@ -129,9 +129,9 @@ document.addEventListener("DOMContentLoaded", () => {
 					deleteButton.textContent = "Remove";
 					deleteButton.onclick = async () => {
 					pokeListArr.splice(getItemIndexInList(pokeList.children, listItem),1);
-						console.log(pokeListArr);
+						//console.log(pokeListArr);
 					    listItem.remove();
-					    console.log(`Removed ${pokemonName} from list`);
+					    //console.log(`Removed ${pokemonName} from list`);
 				  		pokeListCode = await generateListCode();
 						pokeListCodeBox.value = pokeListCode;
 					};
@@ -144,7 +144,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				
 			}
 			catch(error){
-				console.log(error);
+				//console.log(error);
 				alert("Unable to apply List Code!");
 			}
 
@@ -156,16 +156,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (addToListButton) {
           addToListButton.addEventListener("click", addCurrentPokemonToList);
-          console.log("Add to List button listener attached.");
+          //console.log("Add to List button listener attached.");
         } else {
-          console.error("Add to List button not found.");
+          //console.error("Add to List button not found.");
         }
 
         if (clearListButton) {
           clearListButton.addEventListener("click", clearPokemonList);
-          console.log("Clear List button listener attached.");
+          //console.log("Clear List button listener attached.");
         } else {
-          console.error("Clear List button not found.");
+          //console.error("Clear List button not found.");
         }
 		
 		if(applyCodeButton){

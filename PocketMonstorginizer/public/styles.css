@@ -25,6 +25,11 @@ body {
   z-index: 1;
 }
 
+/* Disclaimer styling */
+#Disclamer{
+	text-align: center;
+}
+
 /* Pokémon List positioned fixed in the top-right corner */
 .pokemon-list-section {
   position: fixed;

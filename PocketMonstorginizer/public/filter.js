@@ -221,7 +221,7 @@ export async function generateFilterCode(){
 /**Applys a filter code  */
 export async function applyFilterCode(code){
 	
-	console.log(code);
+	//console.log(code);
 	
 	
 	if(code.length != 41){
@@ -1179,7 +1179,7 @@ export async function generateNewPokePool(){
 	}
 		
 		
-	console.log(newPokepool);
+	//console.log(newPokepool);
 	
 	setFilteringProgressLabel("Selecting from " + newPokepool.length + " Pokémon\n")
 	//console.log(count + " Pokemon are not regular!");

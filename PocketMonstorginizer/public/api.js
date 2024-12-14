@@ -24,7 +24,7 @@ export async function fetchPokemonData(target) {
 
     return await response.json();
   } catch (err) {
-    console.error("Error fetching Pokemon data", err);
+    //console.error("Error fetching Pokemon data", err);
     return null;
   }
 }
@@ -43,7 +43,7 @@ export async function fetchDefaultFormData(pokemonSpecies) {
 
     return await response.json();
   } catch (err) {
-    console.error("Error fetching default form data", err);
+    //console.error("Error fetching default form data", err);
     return null;
   }
 }
